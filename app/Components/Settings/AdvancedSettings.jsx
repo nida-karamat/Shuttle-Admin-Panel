@@ -273,9 +273,7 @@ function ModeCard({ icon: Icon, iconBg, title, description, buttonText, buttonBg
       </button>
     </div>
   );
-}
-
-function Toggle({ enabled, onToggle }) {
+}function Toggle({ enabled, onToggle }) {
   return (
     <button
       onClick={onToggle}

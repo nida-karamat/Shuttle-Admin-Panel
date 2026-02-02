@@ -5,6 +5,27 @@ import { MdWarning } from "react-icons/md";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { BsRecordCircle } from "react-icons/bs";
 import {Bus,TriangleAlert,Route,Clock,Download  } from 'lucide-react'
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+
+const chartData = [
+  { day: "Mon", routeA: 55, routeB: 60 },
+  { day: "Tue", routeA: 50, routeB: 65 },
+  { day: "Wed", routeA: 58, routeB: 52 },
+  { day: "Thu", routeA: 62, routeB: 60 },
+  { day: "Fri", routeA: 59, routeB: 66 },
+  { day: "Sat", routeA: 61, routeB: 63 },
+  { day: "Sun", routeA: 65, routeB: 70 },
+];
+
 
 export default function Dashboard() {
   const stats = [
@@ -167,9 +188,19 @@ export default function Dashboard() {
             </button>
           </div>
           {/* Placeholder for Chart */}
-          <div className="h-64rounded-lg flex items-center justify-center text-gray-400">
-            <img src="/Icon.png" alt="Icon" />
-          </div>
+          <div className="h-64 w-full">
+  <ResponsiveContainer width="100%" height="100%">
+    <LineChart data={chartData}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="day" />
+      <YAxis />
+      <Tooltip />
+      <Line type="monotone" dataKey="routeA" stroke="#003B3B" strokeWidth={2} />
+      <Line type="monotone" dataKey="routeB" stroke="#1BA9A5" strokeWidth={2} />
+    </LineChart>
+  </ResponsiveContainer>
+</div>
+
         </div>
 
         {/* BOTTOM SECTION - 2 COLUMNS */}

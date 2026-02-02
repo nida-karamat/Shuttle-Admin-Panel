@@ -48,8 +48,8 @@ export default function Sidebar() {
       {/* Menu Items + Live Fleet card - Scrollable area */}
       <div className="flex-1 overflow-y-auto pr-2 no-scrollbar">
         <ul className="space-y-1 mt-4">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
+        {menuItems.map((item) => {
+          const Icon = item.icon;
             const isActive = pathname === item.link;
             const isSoft = item.softHighlight && !isActive;
 
@@ -64,42 +64,42 @@ export default function Sidebar() {
               baseClasses += " text-gray-700 hover:bg-gray-50";
             }
 
-            return (
-              <li key={item.link}>
+          return (
+            <li key={item.link}>
                 <Link href={item.link} className={baseClasses}>
                   {Icon && (
-                    <Icon
-                      className={`mr-3 h-4 w-4 ${
+                  <Icon
+                    className={`mr-3 h-4 w-4 ${
                         isActive ? "text-white" : "text-gray-500"
-                      }`}
-                    />
+                    }`}
+                  />
                   )}
-                  <span>{item.name}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                <span>{item.name}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
 
         {/* Live Fleet Monitoring Card - scrolls with menu */}
         <div className="mt-8 mb-2">
-          <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl p-4 text-white shadow-lg">
-            <div className="flex items-start gap-3 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-                <MapPinIcon className="w-4 h-4" />
-              </div>
-              <div className="flex-1">
+        <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl p-4 text-white shadow-lg">
+          <div className="flex items-start gap-3 mb-3">
+            <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+              <MapPinIcon className="w-4 h-4" />
+            </div>
+            <div className="flex-1">
                 <h3 className="text-sm font-semibold mb-1">
                   Live Fleet Monitoring
                 </h3>
                 <p className="text-xs text-white/90">
                   Track all shuttles in real-time
                 </p>
-              </div>
             </div>
-            <button className="w-full bg-white text-emerald-700 text-xs font-semibold py-2 px-4 rounded-lg hover:bg-white/90 transition-colors">
-              View Map
-            </button>
+          </div>
+          <button className="w-full bg-white text-emerald-700 text-xs font-semibold py-2 px-4 rounded-lg hover:bg-white/90 transition-colors">
+            View Map
+          </button>
           </div>
         </div>
       </div>

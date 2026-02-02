@@ -1,5 +1,28 @@
 import React from "react";
 
+
+import {
+  ResponsiveContainer,
+  ComposedChart,
+  Bar,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+
+const data = [
+  { day: "Mon", trips: 120, load: 70 },
+  { day: "Tue", trips: 150, load: 75 },
+  { day: "Wed", trips: 170, load: 80 },
+  { day: "Thu", trips: 140, load: 65 },
+  { day: "Fri", trips: 190, load: 85 },
+  { day: "Sat", trips: 90, load: 60 },
+  { day: "Sun", trips: 60, load: 50 },
+];
+
 const performanceData = [
   { id: "S1", trips: 145, onTime: "94%", load: "68%", efficiency: "92%", status: "ACTIVE", color:"text-[#10B981]"},
   { id: "S2", trips: 138, onTime: "89%", load: "72%", efficiency: "88%", status: "ACTIVE",color:"text-[#F59E0B]", },
@@ -35,8 +58,28 @@ export default function ShuttlesTab() {
           </div>
         </div>
 
-        <div className="h-56 sm:h-64 flex items-end justify-between gap-3 sm:gap-4 px-2 sm:px-4">
-           <img src="/shuttle.png" alt="shuttle" className="w-full h-full object-cover" />
+        <div className="h-64 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="day" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+
+              {/* Bar in green */}
+              <Bar dataKey="trips" name="Trip Volume" fill="#22c55e" />
+
+              {/* Line in red */}
+              <Line
+                type="monotone"
+                dataKey="load"
+                name="Passenger Load %"
+                stroke="#ef4444"
+                strokeWidth={2}
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
@@ -58,20 +101,28 @@ export default function ShuttlesTab() {
             {performanceData.map((row, idx) => (
               <tr
                 key={row.id}
-                className={idx !== performanceData.length - 1 ? "border-b border-gray-100" : ""}
+                className={
+                  idx !== performanceData.length - 1
+                    ? "border-b border-gray-100"
+                    : ""
+                }
               >
                 <td className="py-3 pr-4 text-gray-700 text-xs sm:text-sm font-medium">
                   {row.id}
                 </td>
                 <td className="py-3 pr-4 text-gray-600">{row.trips}</td>
-                <td className={`py-3 pr-4 ${row.color} font-medium`}>{row.onTime}</td>
+                <td className={`py-3 pr-4 ${row.color} font-medium`}>
+                  {row.onTime}
+                </td>
                 <td className="py-3 pr-4 text-gray-600">{row.load}</td>
                 <td className="py-3 pr-4">
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-1.5 rounded-full bg-emerald-50 overflow-hidden max-w-[120px]">
                       <div className="h-full bg-emerald-500" />
                     </div>
-                    <span className="text-gray-700 text-xs">{row.efficiency}</span>
+                    <span className="text-gray-700 text-xs">
+                      {row.efficiency}
+                    </span>
                   </div>
                 </td>
                 <td className="py-3">

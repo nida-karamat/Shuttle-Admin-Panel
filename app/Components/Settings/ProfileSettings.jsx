@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ThemeColors } from "@/app/theme/color.js";
 import {Upload, Trash2,Lock,Save  } from "lucide-react";
 export default function ProfileSettings() {
   return (
@@ -13,8 +14,8 @@ export default function ProfileSettings() {
           Update your personal information and profile preferences.
         </p>
       </header>
- {/* Company logo */}
- <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3">
+      {/* Company logo */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3">
         <p className="text-xs font-semibold text-gray-800">Profile Photo</p>
 
         <div className="flex items-center gap-4 flex-wrap">
@@ -29,22 +30,32 @@ export default function ProfileSettings() {
           </div>
 
           <div className="flex gap-2">
-          <button className="px-5 py-1 rounded-xl bg-[#003B3B] text-white text-xs font-medium hover:bg-emerald-800 flex items-center gap-2">
-         <Upload className="w-4 h-4" />
-           Upload New
-         </button>
+            <button
+              className="px-5 py-1 rounded-xl  text-white text-xs font-medium hover:bg-emerald-800 flex items-center gap-2"
+              style={{ backgroundColor: ThemeColors.button.default }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  ThemeColors.button.hover)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor =
+                  ThemeColors.button.default)
+              }
+            >
+              <Upload className="w-4 h-4" />
+              Upload New
+            </button>
 
-         <button className="px-4 py-4 rounded-xl text-xs font-medium border border-gray-300 hover:bg-emerald-800 flex items-center gap-2">
-         <Trash2 className="w-4 h-4" />
-          Remove
-         </button>
+            <button className="px-4 py-4 rounded-xl text-xs font-medium border border-gray-300 hover:bg-emerald-800 flex items-center gap-2">
+              <Trash2 className="w-4 h-4" />
+              Remove
+            </button>
           </div>
         </div>
 
         <p className="text-[11px] text-gray-500 ml-18">
-         JPG,PNG or GIF Max size 2MB. Recommended 400x400px.
+          JPG,PNG or GIF Max size 2MB. Recommended 400x400px.
         </p>
-       
       </div>
 
       {/* Personal information */}
@@ -78,8 +89,17 @@ export default function ProfileSettings() {
             Last changed: December 15, 2024
           </p>
         </div>
-        <button className=" px-5 py-2 rounded-xl bg-[#003B3B] text-white font-medium hover:bg-emerald-800 flex items-center gap-2">
-        <Lock className="w-4 h-4" />
+        <button
+          className=" px-5 py-2 rounded-xl  text-white font-medium hover:bg-emerald-800 flex items-center gap-2"
+          style={{ backgroundColor: ThemeColors.button.default }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = ThemeColors.button.hover)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = ThemeColors.button.default)
+          }
+        >
+          <Lock className="w-4 h-4" />
           Change Password
         </button>
       </div>
@@ -89,7 +109,16 @@ export default function ProfileSettings() {
         <button className=" text-red-500 hover:underline">
           Cancel Changes
         </button>
-        <button className="px-5 py-3 rounded-xl bg-[#003B3B] text-white font-medium hover:bg-emerald-800 flex items-center gap-2">
+        <button
+          className="px-5 py-3 rounded-xl  text-white font-medium hover:bg-emerald-800 flex items-center gap-2"
+          style={{ backgroundColor: ThemeColors.button.default }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = ThemeColors.button.hover)
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = ThemeColors.button.default)
+          }
+        >
           <Save className="w-4 h-4" />
           Save Changes
         </button>

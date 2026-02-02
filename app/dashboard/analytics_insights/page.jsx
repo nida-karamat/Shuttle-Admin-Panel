@@ -8,6 +8,40 @@ import LocationsTab from "../../Components/analytics_insights/LocationsTab";
 
 import { Activity, Truck, Users, Zap } from "lucide-react";
 
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
+
+const data = [
+  { day: "Mon", passengers: 2400, trips: 160 },
+  { day: "Tue", passengers: 2550, trips: 170 },
+  { day: "Wed", passengers: 2890, trips: 195 },
+  { day: "Thu", passengers: 2700, trips: 180 },
+  { day: "Fri", passengers: 3100, trips: 210 },
+  { day: "Sat", passengers: 2300, trips: 165 },
+  { day: "Sun", passengers: 2200, trips: 150 },
+];
+
+const fleetStatusData = [
+  { name: "On Route", value: 18, color: "#10b981" }, // emerald
+  { name: "At Stop", value: 4, color: "#3b82f6" }, // blue
+  { name: "On Break", value: 2, color: "#f59e0b" }, // amber
+  { name: "Maintenance", value: 4, color: "#ef4444" }, // red
+];
+
+
+
 const kpiCards = [
   {
     label: "Total Trips",
@@ -152,9 +186,43 @@ function OverviewTab() {
         </div>
 
         {/* Simple line-chart style background */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden h-64">
           
-         <img src="/overview.png" alt="overview" className="w-full h-full object-cover" />
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data}>
+            <defs>
+              <linearGradient id="passengerFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#14b8a6" stopOpacity={0.35} />
+                <stop offset="100%" stopColor="#14b8a6" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+            <XAxis dataKey="day" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+
+            {/* Passenger Area */}
+            <Area
+              type="monotone"
+              dataKey="passengers"
+              stroke="#14b8a6"
+              fill="url(#passengerFill)"
+              name="Passengers"
+            />
+
+            {/* Trips Line */}
+            <Line
+              type="monotone"
+              dataKey="trips"
+              stroke="#22c55e"
+              strokeWidth={2}
+              dot={{ r: 4 }}
+              name="Trips"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
           
         </div>
       </div>
@@ -162,49 +230,59 @@ function OverviewTab() {
       {/* BOTTOM GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Fleet Status Distribution */}
-        <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center gap-6">
-          <div className="flex-1">
+        <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6">
+          <div>
             <h3 className="text-sm font-semibold mb-1">
               Fleet Status Distribution
             </h3>
             <p className="text-xs text-gray-500 mb-4">
               Overview of current shuttle status
             </p>
-
-            {/* Donut chart style */}
-            <div className="flex items-center justify-center">
-              <div className="relative w-40 h-40">
-                <div className="absolute inset-0 rounded-full bg-conic-to-r from-emerald-500 via-sky-400 via-amber-400 to-rose-500" />
-                <div className="absolute inset-3 rounded-full bg-white" />
-                <div className="absolute inset-9 rounded-full bg-emerald-50 flex flex-col items-center justify-center text-xs">
-                  <span className="text-gray-500">On Route</span>
-                  <span className="font-semibold text-sm">18</span>
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* Legend */}
-          <div className="flex-1 space-y-2 text-xs">
-            {[
-              { label: "On Route", value: 18, color: "bg-emerald-500" },
-              { label: "At Stop", value: 4, color: "bg-sky-400" },
-              { label: "On Break", value: 2, color: "bg-amber-400" },
-              { label: "Maintenance", value: 4, color: "bg-rose-500" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="flex items-center justify-between gap-4"
-              >
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`w-2.5 h-2.5 rounded-full ${item.color}`}
-                  />
-                  <span className="text-gray-600">{item.label}</span>
+          {/* Donut chart centered */}
+          <div className="flex flex-col items-center gap-6">
+            <ResponsiveContainer width="100%" height={200}>
+              <PieChart>
+                <Pie
+                  data={fleetStatusData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={45}
+                  outerRadius={85}
+                  paddingAngle={2}
+                  dataKey="value"
+                >
+                  {fleetStatusData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+
+            {/* Legend - 2x2 Grid */}
+            <div className="grid grid-cols-2 gap-8 w-full text-xs">
+              {[
+                { label: "On Route", value: 18, color: "bg-emerald-500" },
+                { label: "At Stop", value: 4, color: "bg-sky-400" },
+                { label: "On Break", value: 2, color: "bg-amber-400" },
+                { label: "Maintenance", value: 4, color: "bg-rose-500" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center justify-between gap-4"
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`w-2.5 h-2.5 rounded-full ${item.color}`}
+                    />
+                    <span className="text-gray-600">{item.label}</span>
+                  </div>
+                  <span className="font-medium">{item.value}</span>
                 </div>
-                <span className="font-medium">{item.value}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
