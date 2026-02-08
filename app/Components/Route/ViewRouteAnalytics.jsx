@@ -1,10 +1,10 @@
 "use client";
 
-export default function DriverActivityTimeline({ driver }) {
-  if (!driver) return null;
+export default function ViewRouteAnalytics({ View}) {
+  if (!View) return null;
 
   // Timeline data - representing 6 AM to 12 PM (midnight) = 18 hours
-  const timelineSegments = driver.timeline || [
+  const timelineSegments = View.timeline || [
     { type: "work", start: 6, duration: 190, label: "190 min" },
     { type: "lunch", start: 9.17, duration: 30, label: "Lunch Break" },
     { type: "work", start: 9.67, duration: 180, label: "180 min" },

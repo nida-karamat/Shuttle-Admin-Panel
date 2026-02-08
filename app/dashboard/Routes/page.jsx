@@ -86,6 +86,18 @@ const routes = [
 
 export default function RoutesPage() {
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("All");
+
+  // Filter routes based on selected status
+  const filteredRoutes = filterStatus === "All" 
+    ? routes 
+    : routes.filter(r => {
+        if (filterStatus === "Active") return r.status === "Active";
+        if (filterStatus === "In-Active") return r.status === "Inactive";
+        if (filterStatus === "High Demand") return r.status === "Active"; // Customize as needed
+        if (filterStatus === "Missing Assignment") return r.driver === "No Assigned" || r.shuttle === "S7";
+        return true;
+      });
 
   return (
     <div className="p-6  min-h-screen">
@@ -116,10 +128,11 @@ export default function RoutesPage() {
         ].map((item) => (
           <button
             key={item}
-            className={`px-5 py-3 rounded-xl border border-gray-100 text-sm ${
-              item === "All"
+            onClick={() => setFilterStatus(item)}
+            className={`px-5 py-3 rounded-xl border border-gray-100 text-sm transition ${
+              filterStatus === item
                 ? "bg-[#003B3B] text-white"
-                : "bg-white border text-gray-600"
+                : "bg-white border text-gray-600 hover:border-gray-200"
             }`}
           >
             {item}
@@ -129,60 +142,57 @@ export default function RoutesPage() {
 
       {/* Table or second-design RoutesPanel (show panel when a row is selected) */}
       {selectedIndex === null ? (
-        <div className="rounded-xl overflow-hidden"> 
-          <table className="w-full text-sm border-separate border-spacing-y-3">
-            <thead className=" text-gray-500 text-left">
-              <tr>
-                <th className="p-4">Route Name</th>
-                <th className="p-4">Stops</th>
-                <th className="p-4">Assigned Shuttle</th>
-                <th className="p-4">Assigned Driver</th>
-                <th className="p-4">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {routes.map((route, index) => {
-                return (
-                  <tr
-                    key={index}
-                    onClick={() => setSelectedIndex(index)}
-                    className={`cursor-pointer transition shadow-sm  border border-gray-200 ${
-                      index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                    } hover:bg-[#127E88] hover:text-white `}
+        <div className="rounded-xl overflow-hidden">
+          <div className="grid grid-cols-5 bg-gray-100 text-gray-500 text-sm p-4 rounded-t-xl font-medium">
+            <div className="col-span-1">Route Name</div>
+            <div className="col-span-1">Stops</div>
+            <div className="col-span-1">Assigned Shuttle</div>
+            <div className="col-span-1">Assigned Driver</div>
+            <div className="col-span-1">Status</div>
+          </div>
+
+          <div className="flex flex-col gap-3 mt-3 p-2">
+            {filteredRoutes.map((route, index) => (
+              <div
+                key={index}
+                onClick={() => setSelectedIndex(routes.indexOf(route))}
+                className={`cursor-pointer rounded-2xl py-4 px-5 grid grid-cols-5 items-center gap-0 ${
+                  index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                } hover:bg-[#127E88] hover:text-white shadow-sm transition`}
+              >
+                <div className="col-span-1">
+                  <span className="font-medium">{route.name}</span>
+                  <br />
+                  <span className="text-gray-400 text-sm">{route.stop}</span>
+                </div>
+
+                <div className="col-span-1 text-sm text-gray-400">{route.stops.join(" → ")}</div>
+
+                <div className="col-span-1">
+                  <span className="font-semibold">{route.shuttle}</span>
+                  <br />
+                  <span className="text-gray-400 text-xs">{route.distance}</span>
+                </div>
+
+                <div className="col-span-1 text-sm">{route.driver}</div>
+
+                <div className="col-span-1 flex flex-col items-start">
+                  <span
+                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      route.status === "Active"
+                        ? "bg-emerald-100 text-emerald-700"
+                        : route.status === "Attention"
+                        ? "bg-orange-100 text-orange-600"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
                   >
-                    <td className="p-4">
-                      <span className="font-medium">{route.name}</span> <br />
-                      <span className="text-gray-400">{route.stop}</span>
-                    </td>
-
-                    <td className="p-4 text-gray-500">
-                      {route.stops.join(" → ")}
-                    </td>
-
-                    <td className="p-4">
-                      <span className="font-semibold">{route.shuttle}</span> <br />
-                      <span className="text-gray-400">{route.distance}</span>
-                    </td>
-
-                    <td className="p-4">{route.driver}</td>
-
-                    <td className="p-4">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-medium${
-                          route.status === "Active"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "bg-orange-100 text-orange-600"
-                        }`}
-                      >
-                        {route.status}
-                      </span>
-                      <p className="text-xs text-gray-400 mt-1">{route.time}</p>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                    {route.status}
+                  </span>
+                  <p className="text-xs text-gray-400 mt-1">{route.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div>

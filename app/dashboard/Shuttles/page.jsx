@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Bus, MessageCircleWarning, Dot } from "lucide-react";
+import ShuttleDetail from "../../Components/ShuttleDetail";
+import ShuttleActivityTimeline from "@/app/Components/Shuttle/ShuttleActivityTimeline";
+import { Dot, Bus, MessageCircleWarning } from "lucide-react";
 
 /* -------------------- CONSTANTS -------------------- */
 
@@ -107,7 +109,7 @@ export default function ShuttlesPage() {
       id: "S4",
       route: "Head Office Express",
       distance: "18 Seater",
-      driver: { name: "Faisal Al-Qilsani", avatar: "/Shuttle/S2.png"  },
+      driver: { name: "Faisal Al-Qilsani", avatar: "/Shuttle/S2.png" },
       status: "Full",
       statusColor: "bg-orange-100 text-orange-700",
       occupancy: "18/18",
@@ -122,7 +124,7 @@ export default function ShuttlesPage() {
       id: "S15",
       route: "Residential Loop",
       distance: "18 Seater",
-      driver: { name: "Majid Al-Oaiki",  avatar: "/Shuttle/S3.png" },
+      driver: { name: "Majid Al-Oaiki", avatar: "/Shuttle/S3.png" },
       status: "Waiting",
       statusColor: "bg-yellow-100 text-yellow-700",
       occupancy: "8/18",
@@ -137,7 +139,7 @@ export default function ShuttlesPage() {
       id: "S7",
       route: "West Terminal",
       distance: "22 Seater",
-      driver: { name: "Sufian Al-Mutairi", avatar: "/Shuttle/S4.png"  },
+      driver: { name: "Sufian Al-Mutairi", avatar: "/Shuttle/S4.png" },
       status: "Emergency",
       statusColor: "bg-red-100 text-red-700",
       occupancy: "6/22",
@@ -152,7 +154,7 @@ export default function ShuttlesPage() {
       id: "S22",
       route: "Building A Express",
       distance: "12 Seater",
-      driver: { name: "Nawaf Al-Shammari",  avatar: "/Shuttle/S5.png" },
+      driver: { name: "Nawaf Al-Shammari", avatar: "/Shuttle/S5.png" },
       status: "Onroute",
       statusColor: "bg-teal-100 text-teal-700",
       occupancy: "8/12",
@@ -167,7 +169,7 @@ export default function ShuttlesPage() {
       id: "S9",
       route: "Campus Connector",
       distance: "18 Seater",
-      driver: { name: "Yassar Al-Ajmi", avatar: "/Shuttle/S1.png"  },
+      driver: { name: "Yassar Al-Ajmi", avatar: "/Shuttle/S1.png" },
       status: "Idle",
       statusColor: "bg-gray-100 text-gray-700",
       occupancy: "0/18",
@@ -182,7 +184,7 @@ export default function ShuttlesPage() {
       id: "S31",
       route: "City Center Link",
       distance: "22 Seater",
-      driver: { name: "Khalid Al-Balushi", avatar: "/Shuttle/S7.png"  },
+      driver: { name: "Khalid Al-Balushi", avatar: "/Shuttle/S7.png" },
       status: "Near Full",
       statusColor: "bg-orange-100 text-orange-700",
       occupancy: "18/22",
@@ -197,7 +199,7 @@ export default function ShuttlesPage() {
       id: "S5",
       route: "Airport Shuttle",
       distance: "18 Seater",
-      driver: { name: "Omar Al-Ghannadi",  avatar: "/Shuttle/S8.png"  },
+      driver: { name: "Omar Al-Ghannadi", avatar: "/Shuttle/S8.png" },
       status: "Offline",
       statusColor: "bg-gray-100 text-gray-700",
       occupancy: "0/18",
@@ -215,13 +217,14 @@ export default function ShuttlesPage() {
   const filteredShuttles =
     selectedTab === "All"
       ? shuttles
-      : shuttles.filter(
-          (s) => getStatusType(s.status) === selectedTab
-        );
+      : shuttles.filter((s) => getStatusType(s.status) === selectedTab);
 
-  const selected = filteredShuttles.find(
-    (s) => s.id === selectedShuttle
-  );
+  const selected = filteredShuttles.find((s) => s.id === selectedShuttle);
+
+  // headers: full on initial page, compact when a shuttle is selected
+  const headers = selected
+    ? ["ID", "ROUTE", "DRIVER", "STATUS"]
+    : ["ID", "ROUTE", "DRIVER", "STATUS", "OCCUPANCY", "UPDATED", "ACTIONS"];
 
   /* -------------------- UI -------------------- */
 
@@ -233,7 +236,7 @@ export default function ShuttlesPage() {
         </h1>
 
         {/* STATS */}
-        <div className="grid grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-3 gap-4 mb-6">
           {stats.map((stat, idx) => (
             <div
               key={idx}
@@ -247,17 +250,13 @@ export default function ShuttlesPage() {
                     <p className="text-2xl font-bold text-gray-800">
                       {stat.value}
                     </p>
-                    <p className="text-gray-500 text-xs">
-                      {stat.label}
-                    </p>
+                    <p className="text-gray-500 text-xs">{stat.label}</p>
                   </div>
                 </div>
 
                 <p
                   className={`text-xs font-medium ${
-                    stat.positive
-                      ? "text-teal-600"
-                      : "text-red-600"
+                    stat.positive ? "text-teal-600" : "text-red-600"
                   } mt-7`}
                 >
                   {stat.change}
@@ -268,136 +267,110 @@ export default function ShuttlesPage() {
         </div>
 
         {/* FILTER TABS */}
-        <div className="rounded-lg p-4 mb-6">
-          <div className="flex gap-3">
-            {TABS.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setSelectedTab(tab)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition ${
-                  tab === selectedTab
-                    ? "bg-teal-900 text-white"
-                    : "bg-white text-gray-700 hover:bg-teal-900 hover:text-white"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+        <div className="flex gap-2 mb-4 items-center flex-wrap">
+          {TABS.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-lg text-xs border transition-colors flex-shrink-0 ${
+                tab === selectedTab
+                  ? "bg-[#003B3B] text-white border-[#003B3B]"
+                  : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+
+          {/* Filter Dropdowns */}
+          <div className="flex gap-2 ml-auto">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>All Drivers</option>
+            </select>
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>All Shuttles</option>
+            </select>
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>All Routes</option>
+            </select>
           </div>
         </div>
-
         {/* TABLE + DETAIL */}
         <div
           className={`grid gap-6 ${
-            selected
-              ? "grid-cols-1 lg:grid-cols-3"
-              : "grid-cols-1"
+            selected ? "grid-cols-1 lg:grid-cols-3" : "grid-cols-1"
           }`}
         >
           {/* TABLE */}
-          <div
-            className={`${
-              selected ? "lg:col-span-2" : ""
-            } overflow-hidden`}
-          >
-            <div className="overflow-x-auto">
+          <div className={`${selected ? "lg:col-span-2" : ""} overflow-hidden`}>
+            <div className="overflow-hidden">
               <table className="w-full border-separate border-spacing-y-4">
-              <thead>
-  <tr className="bg-gray-50">
-    {[
-      "ID",
-      "ROUTE",
-      "DRIVER",
-      "STATUS",
-      "OCCUPANCY",
-      "UPDATED",
-      "ACTIONS",
-    ].map((h, index, arr) => (
-      <th
-        key={h}
-        className={`px-6 py-4 text-left text-xs font-semibold text-gray-700
-          ${index === 0 ? "rounded-l-lg" : ""}
-          ${index === arr.length - 1 ? "rounded-r-lg" : ""}
-        `}
-      >
-        {h}
-      </th>
-    ))}
-  </tr>
-</thead>
+                <thead>
+                  <tr className="bg-gray-50">
+                    {headers.map((h, index, arr) => (
+                      <th
+                        key={h}
+                        className={`px-6 py-4 text-left text-xs font-semibold text-gray-700
+            ${index === 0 ? "rounded-l-lg" : ""}
+            ${index === arr.length - 1 ? "rounded-r-lg" : ""}
+          `}
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
 
                 <tbody>
-                  {filteredShuttles.map(
-                    (shuttle, index) => {
-                      const isSelected =
-                        selectedShuttle === shuttle.id;
+                  {filteredShuttles.map((shuttle, index) => {
+                    const isSelected = selectedShuttle === shuttle.id;
 
-                      const baseBg =
-                        index % 2 === 0
-                          ? "bg-gray-200 group-hover:bg-[#127E88] group-hover:text-white"
-                          : "bg-white group-hover:bg-[#127E88] group-hover:text-white";
+                    const baseBg =
+                      index % 2 === 0
+                        ? "bg-gray-200 group-hover:bg-[#127E88] group-hover:text-white"
+                        : "bg-white group-hover:bg-[#127E88] group-hover:text-white";
 
-                      const tdBase = `px-6 py-4 align-middle border-y border-gray-200  ${baseBg}`;
+                    const tdBase = `px-6 py-4 align-middle border-y border-gray-200  ${baseBg}`;
 
-                      const tdActive = `px-6 py-4 align-middle border-y ${ACTIVE_BORDER} ${ACTIVE_BG}`;
+                    const tdActive = `px-6 py-4 align-middle border-y ${ACTIVE_BORDER} ${ACTIVE_BG}`;
 
-                      const cellClass = isSelected
-                        ? tdActive
-                        : tdBase;
+                    const cellClass = isSelected ? tdActive : tdBase;
 
-                      return (
+                    return (
+                      <React.Fragment key={shuttle.id}>
                         <tr
-                          key={shuttle.id}
-                          onClick={() =>
-                            setSelectedShuttle(shuttle.id)
-                          }
-                          className="cursor-pointer group "
+                          onClick={() => setSelectedShuttle(shuttle.id)}
+                          className="cursor-pointer group"
                         >
-                          <td
-                            className={`${cellClass} rounded-l-lg border-l`}
-                          >
+                          {/* ID */}
+                          <td className={`${cellClass} rounded-l-lg border-l`}>
                             <span
-                              className={`font-semibold ${
-                                isSelected
-                                  ? "text-white"
-                                  : "text-gray-900 group-hover:text-white"
-                              }`}
+                              className={`font-semibold ${isSelected ? "text-white" : "text-gray-900 group-hover:text-white"}`}
                             >
                               {shuttle.id}
                             </span>
                           </td>
 
+                          {/* ROUTE */}
                           <td className={cellClass}>
                             <div className="flex items-center gap-2">
                               <Dot
-                                className={`${getDotColor(
-                                  shuttle.status
-                                )} h-5 w-5`}
+                                className={
+                                  isSelected
+                                    ? "text-white"
+                                    : getDotColor(shuttle.status)
+                                }
                                 strokeWidth={5}
                               />
-                              <div>
-                                <p
-                                  className={`text-sm font-medium ${
-                                    isSelected
-                                      ? "text-white"
-                                      : "text-gray-800 group-hover:text-white"
-                                  }`}
-                                >
-                                  {shuttle.route}
-                                </p>
-                                <p
-                                  className={`text-xs ${
-                                    isSelected
-                                      ? "text-white/80"
-                                      : "text-gray-500 group-hover:text-white/80"
-                                  }`}
-                                >
-                                  {shuttle.distance}
-                                </p>
-                              </div>
+                              <p
+                                className={`text-sm font-medium whitespace-nowrap ${isSelected ? "text-white" : ""}`}
+                              >
+                                {shuttle.route}
+                              </p>
                             </div>
                           </td>
 
+                          {/* DRIVER */}
                           <td className={cellClass}>
                             <div className="flex items-center gap-2">
                               <Image
@@ -405,95 +378,85 @@ export default function ShuttlesPage() {
                                 alt={shuttle.driver.name}
                                 width={32}
                                 height={32}
-                                className="w-8 h-8 rounded-full object-cover"
+                                className="w-8 h-8 rounded-full"
                               />
-                              <span
-                                className={`text-sm ${
-                                  isSelected
-                                    ? "text-white"
-                                    : "text-gray-800 group-hover:text-white"
-                                }`}
-                              >
+                              <span className={isSelected ? "text-white" : ""}>
                                 {shuttle.driver.name}
                               </span>
                             </div>
                           </td>
 
-                          <td className={cellClass}>
+                          {/* STATUS */}
+                          <td
+                            className={`${
+                              cellClass
+                            } ${selected ? "rounded-r-lg border-r" : ""}`}
+                          >
                             <span
-                              className={`text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1 w-fit ${
+                              className={`px-3 py-1 rounded-full text-xs ${
                                 isSelected
-                                  ? "bg-white/15 text-white"
+                                  ? "bg-white/20 text-white flex items-center gap-1 w-fit"
                                   : shuttle.statusColor
                               }`}
                             >
-                              <Dot
-                                className={
-                                  isSelected
-                                    ? "text-white"
-                                    : getDotColor(
-                                        shuttle.status
-                                      )
-                                }
-                                strokeWidth={3}
-                              />
+                              {isSelected && (
+                                <Dot className="text-white" strokeWidth={3} />
+                              )}
                               {shuttle.status}
                             </span>
                           </td>
 
-                          <td className={cellClass}>
-                            <div className="w-full max-w-xs h-2 bg-gray-200 rounded-full overflow-hidden">
-                              <div
-                                className={`h-full ${
-                                  isSelected
-                                    ? "bg-white"
-                                    : "bg-teal-500"
-                                }`}
-                                style={{
-                                  width: `${shuttle.occupancyPercent}%`,
-                                }}
-                              />
-                            </div>
-                            <p
-                              className={`text-xs mt-1 ${
-                                isSelected
-                                  ? "text-white/80"
-                                  : "text-gray-600 group-hover:text-white/80"
-                              }`}
-                            >
-                              {shuttle.occupancy}
-                            </p>
-                          </td>
+                          {/* OCCUPANCY (only when not selected) */}
+                          {!selected && (
+                            <td className={cellClass}>
+                              <div className="flex items-center justify-between gap-4">
+                                <div className="text-sm font-medium">
+                                  {shuttle.occupancy}
+                                </div>
+                                <div className="w-24 bg-gray-200 h-2 rounded-full overflow-hidden">
+                                  <div
+                                    className="h-full bg-teal-500"
+                                    style={{
+                                      width: `${shuttle.occupancyPercent}%`,
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            </td>
+                          )}
 
-                          <td className={cellClass}>
-                            <p
-                              className={`text-xs ${
-                                isSelected
-                                  ? "text-white/80"
-                                  : "text-gray-600 group-hover:text-white/80"
-                              }`}
-                            >
-                              {shuttle.updated}
-                            </p>
-                          </td>
+                          {/* UPDATED (only when not selected) */}
+                          {!selected && (
+                            <td className={cellClass}>
+                              <span className="text-xs text-gray-500">
+                                {shuttle.updated}
+                              </span>
+                            </td>
+                          )}
 
-                          <td
-                            className={`${cellClass} rounded-r-lg border-r`}
-                          >
-                            <button
-                              className={`text-sm font-medium hover:underline ${
-                                isSelected
-                                  ? "text-white"
-                                  : "text-teal-600 group-hover:text-white"
-                              }`}
+                          {/* ACTIONS (only when not selected) */}
+                          {!selected && (
+                            <td
+                              className={`${cellClass} rounded-r-lg border-r`}
                             >
-                              View
-                            </button>
-                          </td>
+                              <div className="text-sm text-teal-700">View</div>
+                            </td>
+                          )}
                         </tr>
-                      );
-                    }
-                  )}
+
+                        {/* Timeline row - directly below selected shuttle */}
+                        {isSelected && (
+                          <tr>
+                            <td colSpan={headers.length}>
+                              <div className="bg-white rounded-lg border border-gray-200 px-5 py-4">
+                                <ShuttleActivityTimeline shuttle={shuttle} />
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -501,126 +464,10 @@ export default function ShuttlesPage() {
 
           {/* DETAIL PANEL */}
           {selected && (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-              <div className="space-y-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-xs text-gray-500 mb-1">
-                      Shuttle Number
-                    </p>
-                    <h2 className="text-2xl font-bold text-gray-900">
-                      {selected.coordinates}
-                    </h2>
-                  </div>
-
-                  <button
-                    onClick={() =>
-                      setSelectedShuttle(null)
-                    }
-                    className="text-gray-400 hover:text-gray-600"
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                {/* occupancy */}
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold text-gray-700">
-                    Occupancy
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">
-                        {selected.occupancy}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Passengers
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-2xl font-bold text-teal-600">
-                        {selected.occupancyPercent}%
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Capacity
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mt-3">
-                    <div
-                      className="h-full bg-teal-500"
-                      style={{
-                        width: `${selected.occupancyPercent}%`,
-                      }}
-                    />
-                  </div>
-
-                  <p className="text-xs text-gray-500 mt-2">
-                    3 mins
-                  </p>
-                </div>
-
-                {/* stops */}
-                <div className="space-y-3 border-t border-gray-200 pt-4">
-                  <div className="flex gap-3">
-                    <div className="w-6 h-6 rounded-full bg-teal-100 flex items-center justify-center">
-                      <span className="text-sm text-teal-600">
-                        ●
-                      </span>
-                    </div>
-
-                    <div>
-                      <p className="text-xs text-gray-500">
-                        Current Stop
-                      </p>
-                      <p className="text-sm font-semibold text-gray-900">
-                        {selected.currentStop}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3">
-                    <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                      <span className="text-sm text-blue-600">
-                        📍
-                      </span>
-                    </div>
-
-                    <div>
-                      <p className="text-xs text-gray-500">
-                        Next Stop
-                      </p>
-                      <p className="text-sm font-semibold text-gray-900">
-                        {selected.nextStop}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3 text-xs text-gray-500">
-                    <span>🕐</span>
-                    <p>{selected.updatedTime}</p>
-                  </div>
-                </div>
-
-                {/* buttons */}
-                <div className="space-y-3 border-t border-gray-200 pt-4">
-                  <button className="w-full bg-teal-700 text-white py-2 rounded-lg text-sm font-semibold hover:bg-teal-800">
-                    ⓘ View Shuttle Details
-                  </button>
-
-                  <button className="w-full border border-gray-300 text-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-50">
-                    📊 View Shuttle Analytics
-                  </button>
-
-                  <button className="w-full border border-gray-300 text-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-50">
-                    💬 Send Broadcast Message
-                  </button>
-                </div>
-              </div>
-            </div>
+            <ShuttleDetail
+              shuttle={selected}
+              onClose={() => setSelectedShuttle(null)}
+            />
           )}
         </div>
       </div>

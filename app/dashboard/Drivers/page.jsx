@@ -294,7 +294,7 @@ export default function DriversPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="">
       <div className="p-6">
         <h2 className="text-2xl font-semibold mb-6 text-[#003B3B]">Drivers Management</h2>
         
@@ -315,12 +315,12 @@ export default function DriversPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-4 flex-wrap">
+        <div className="flex gap-2 mb-4 items-center flex-wrap">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-1.5 rounded-lg text-sm border transition-colors ${
+              className={`px-4 py-2 rounded-lg text-xs border transition-colors flex-shrink-0 ${
                 activeTab === tab
                   ? "bg-[#003B3B] text-white border-[#003B3B]"
                   : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
@@ -329,126 +329,142 @@ export default function DriversPage() {
               {tab}
             </button>
           ))}
+          
+          {/* Filter Dropdowns */}
+          <div className="flex gap-2 ml-auto">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>Assigned Shuttle</option>
+            </select>
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>Assigned Route</option>
+            </select>
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>Shift</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Two Panel Layout */}
-      <div className="flex flex-col lg:flex-row gap-0 h-[calc(100vh-280px)]">
+      <div className="flex flex-col lg:flex-row gap-0 h-[calc(100vh-300px)]">
         {/* Left Panel - Driver List + Timeline */}
         <div className={`flex-1 ${selectedDriver ? "lg:w-2/3" : "w-full"} transition-all duration-300`}>
-          <div className="px-6 pb-6">
-            {/* Filter Dropdowns */}
-            <div className="flex gap-3 mb-4">
-              <select className="flex-1 text-sm border border-gray-200 rounded-lg px-3 py-2 text-gray-700 bg-white">
-                <option>Assigned Shuttle</option>
-              </select>
-              <select className="flex-1 text-sm border border-gray-200 rounded-lg px-3 py-2 text-gray-700 bg-white">
-                <option>Assigned Route</option>
-              </select>
-              <select className="flex-1 text-sm border border-gray-200 rounded-lg px-3 py-2 text-gray-700 bg-white">
-                <option>Shift</option>
-              </select>
+          <div className="px-6 pb-6 h-full ">
+
+            {/* Header Row */}
+            <div className="bg-gray-50 rounded-lg px-5 py-3 mb-3 flex items-center justify-between text-xs font-semibold text-gray-500 uppercase">
+              <div className="flex items-center gap-4 flex-1">
+                <span>Driver</span>
+              </div>
+              <div className="flex-1">
+                <span>Assigned Shuttle</span>
+              </div>
+              <div className="flex-1">
+                <span>Shift Hours</span>
+              </div>
+              <div className="flex-shrink-0 w-24">
+                <span>Status</span>
+              </div>
+              <div className="flex-shrink-0 text-right w-24">
+                <span>Last Activity</span>
+              </div>
             </div>
 
-            {/* Drivers Table */}
-            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase">Driver</th>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase">Assigned Shuttle</th>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase">Shift Hours</th>
-                    <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
-                    <th className="text-right px-5 py-3 text-xs font-semibold text-gray-500 uppercase">Last Activity</th>
-                  </tr>
-                </thead>
-
-                <tbody className="divide-y divide-gray-100">
-                  {filteredDrivers.map((d, i) => {
-                    const isSelected = selectedDriver?.id === d.id;
-                    return (
-                      <React.Fragment key={d.id || i}>
-                        <tr
-                          onClick={() => handleDriverClick(d)}
-                          className={`cursor-pointer transition-colors ${
-                            isSelected
-                              ? "bg-[#127E88] text-white hover:bg-[#0f6d75]"
-                              : "bg-white hover:bg-gray-50"
-                          }`}
-                        >
-                          <td className={`px-5 py-4 ${isSelected ? "rounded-l-lg" : ""}`}>
-                            <div className="flex items-center gap-3">
-                              <Image
-                                src={d.avatar}
-                                alt={d.name}
-                                width={40}
-                                height={40}
-                                className="w-10 h-10 rounded-full object-cover"
-                              />
-                              <div>
-                                <p className={`font-medium ${isSelected ? "text-white" : "text-gray-900"}`}>
-                                  {d.name}
-                                </p>
-                                <p className={`text-xs ${isSelected ? "text-white/80" : "text-gray-500"}`}>
-                                  {d.phone}
-                                </p>
-                              </div>
+            {/* Drivers List - Individual Cards */}
+            <div className="space-y-3">
+              {filteredDrivers.map((d, i) => {
+                const isSelected = selectedDriver?.id === d.id;
+                return (
+                  <React.Fragment key={d.id || i}>
+                    {/* Driver Card */}
+                    <div
+                      onClick={() => handleDriverClick(d)}
+                      className={`border rounded-xl px-5 py-4 cursor-pointer transition-all ${
+                        isSelected
+                          ? "bg-[#127E88] border-[#127E88] text-white"
+                          : "bg-white border-gray-200 hover:border-gray-300"
+                      }`}
+                    >
+                      {isSelected ? (
+                        /* Inline layout for selected */
+                        <div className="flex items-center gap-2 text-xs">
+                          <Image
+                            src={d.avatar}
+                            alt={d.name}
+                            width={40}
+                            height={40}
+                            className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                          />
+                          <span className="font-medium whitespace-nowrap">{d.name}</span>
+                          <span className="text-white/60">•</span>
+                          <span className="whitespace-nowrap truncate">{d.phone}</span>
+                          <span className="text-white/60">•</span>
+                          <span className="whitespace-nowrap truncate">{d.shuttle}</span>
+                          <span className="text-white/60">•</span>
+                          <span className="whitespace-nowrap truncate">{d.shift}</span>
+                          <span className="text-white/60">•</span>
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-white/20 border border-white/30 whitespace-nowrap flex-shrink-0">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                            {d.status}
+                          </span>
+                          <span className="text-white/60">•</span>
+                          <span className="ml-auto text-white/60 whitespace-nowrap flex-shrink-0 text-right">{d.last}</span>
+                        </div>
+                      ) : (
+                        /* Card layout for non-selected */
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3 flex-1">
+                            <Image
+                              src={d.avatar}
+                              alt={d.name}
+                              width={40}
+                              height={40}
+                              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-gray-900">{d.name}</p>
+                              <p className="text-xs text-gray-500">{d.phone}</p>
                             </div>
-                          </td>
+                          </div>
 
-                          <td className="px-5 py-4">
-                            <p className={isSelected ? "text-white" : "text-gray-900"}>{d.shuttle}</p>
-                            <p className={`text-xs ${isSelected ? "text-white/80" : "text-gray-400"}`}>
-                              {d.route}
-                            </p>
-                          </td>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-gray-900 font-medium">{d.shuttle}</p>
+                            <p className="text-xs text-gray-400">{d.route}</p>
+                          </div>
 
-                          <td className="px-5 py-4">
-                            <div className={`flex items-center gap-2 ${isSelected ? "text-white" : "text-gray-700"}`}>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 text-gray-700">
                               <Circle
-                                className={`w-2.5 h-2.5 ${isSelected ? "text-white" : statusStyles[d.status].dot}`}
+                                className={`w-2.5 h-2.5 flex-shrink-0 ${statusStyles[d.status].dot}`}
                                 fill="currentColor"
                               />
-                              <span>{d.shift}</span>
+                              <span className="truncate">{d.shift}</span>
                             </div>
-                          </td>
+                          </div>
 
-                          <td className="px-5 py-4">
-                            <span
-                              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs ${
-                                isSelected
-                                  ? "bg-white/20 text-white border border-white/30"
-                                  : statusStyles[d.status].badge
-                              }`}
-                            >
-                              <span
-                                className={`w-2 h-2 rounded-full ${
-                                  isSelected ? "bg-white" : statusStyles[d.status].dotBg
-                                }`}
-                              />
+                          <div className="flex-shrink-0">
+                            <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs ${statusStyles[d.status].badge}`}>
+                              <span className={`w-2 h-2 rounded-full ${statusStyles[d.status].dotBg}`} />
                               {d.status}
                             </span>
-                          </td>
+                          </div>
 
-                          <td className={`px-5 py-4 text-right ${isSelected ? "text-white rounded-r-lg" : "text-gray-400"}`}>
+                          <div className="flex-shrink-0 text-right text-gray-400 text-sm w-24">
                             {d.last}
-                          </td>
-                        </tr>
-                        {/* Timeline row - directly below selected driver */}
-                        {isSelected && (
-                          <tr>
-                            <td colSpan={5} className="px-0 py-0 bg-white">
-                              <div className="px-5 py-4">
-                                <DriverActivityTimeline driver={d} />
-                              </div>
-                            </td>
-                          </tr>
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </tbody>
-              </table>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Timeline row - directly below selected driver */}
+                    {isSelected && (
+                      <div className="bg-white rounded-lg border border-gray-200 px-5 py-4">
+                        <DriverActivityTimeline driver={d} />
+                      </div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </div>
           </div>
         </div>

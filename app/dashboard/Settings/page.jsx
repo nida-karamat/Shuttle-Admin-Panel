@@ -9,6 +9,7 @@ import SystemPreferencesSettings from "../../Components/Settings/SystemPreferenc
 import AccessControlSettings from "../../Components/Settings/AccessControlSettings";
 import DataPrivacySettings from "../../Components/Settings/DataPrivacySettings";
 import AdvancedSettings from "../../Components/Settings/AdvancedSettings";
+import { ChevronRight } from "lucide-react";
 
 const TABS = [
   { id: "settings", label: "Profile Settings" },
@@ -47,12 +48,12 @@ export default function SettingsPage() {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-semibold  mt-10 ">Settings</h1>
-    <div className="min-h-screen flex bg-[#F5F7F9] mt-5">
+    <div className="">
+      <h1 className="text-2xl font-semibold  mt-3  ">Settings</h1>
+    <div className="min-h-screen flex  mt-5">
      
       {/* Left sidebar */}
-      <aside className="hidden md:flex flex-col w-64 bg-white/30  py-6 px-4 space-y-4">
+      <aside className="hidden md:flex flex-col w-64 bg-white/30  py-6 px-4 space-y-4 mr-10 rounded-lg border border-gray-200">
        
         <nav className="flex-1 space-y-1">
           {TABS.map((tab) => {
@@ -61,15 +62,15 @@ export default function SettingsPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                className={`w-full flex items-center justify-between px-3 py-3 rounded-lg text-xs font-medium transition-colors ${
                   isActive
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-700 hover:text-white hover:bg-gray-900"
+                    ? "bg-[#003B3B] text-white"
+                    : "text-gray-700 hover:text-black hover:bg-gray-200"
                 }`}
               >
                 <span>{tab.label}</span>
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <ChevronRight className="w-4 h-4 text-white" />
                 )}
               </button>
             );

@@ -23,11 +23,11 @@ const menuItems = [
     softHighlight: true,
   },
   { name: "Settings", icon: Settings, link: "/dashboard/Settings" },
-  {
-    name: "Help & Support",
-    icon: MessageCircleQuestionMark,
-    link: "/dashboard/help_support",
-  },
+  // {
+  //   name: "Help & Support",
+  //   icon: MessageCircleQuestionMark,
+  //   link: "/dashboard/help_support",
+  // },
 ];
 
 export default function Sidebar() {

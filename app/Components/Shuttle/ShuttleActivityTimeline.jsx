@@ -1,10 +1,10 @@
 "use client";
 
-export default function DriverActivityTimeline({ driver }) {
-  if (!driver) return null;
+export default function ShuttleActivityTimeline({ shuttle }) {
+  if (!shuttle) return null;
 
   // Timeline data - representing 6 AM to 12 PM (midnight) = 18 hours
-  const timelineSegments = driver.timeline || [
+  const timelineSegments = shuttle.timeline || [
     { type: "work", start: 6, duration: 190, label: "190 min" },
     { type: "lunch", start: 9.17, duration: 30, label: "Lunch Break" },
     { type: "work", start: 9.67, duration: 180, label: "180 min" },
@@ -98,14 +98,9 @@ export default function DriverActivityTimeline({ driver }) {
 
           {/* Current time indicator: circular marker with 'Now' label */}
           {currentPosition >= 0 && currentPosition <= 100 && (
-            <div
-              style={{ left: `${currentPosition}%` }}
-              className="absolute top-0 transform -translate-x-1/2 z-30 flex items-center h-full"
-            >
+            <div style={{ left: `${currentPosition}%` }} className="absolute top-0 transform -translate-x-1/2 z-30 flex items-center h-full">
               <div className="flex flex-col items-center mt-1">
-                <div className="bg-gray-900 text-white text-xs px-2 py-0.5 rounded-md mb-1 font-semibold">
-                  Now
-                </div>
+                <div className="bg-gray-900 text-white text-xs px-2 py-0.5 rounded-md mb-1 font-semibold">Now</div>
                 <div className="w-2.5 h-2.5 rounded-full bg-gray-900 border-2 border-white" />
               </div>
             </div>

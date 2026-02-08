@@ -345,101 +345,112 @@ export default function LiveMapPage() {
   return (
     <div className="flex gap-4 w-full">
       {/* Main Map Section */}
-      <div className={`space-y-4 transition-all duration-300 ${selectedShuttleId ? 'flex-[0.65]' : 'flex-1'}`}>
-      <div className="flex flex-wrap gap-4 items-center justify-between  p-4">
-        {/* Filter Tabs */}
-        <div className="flex items-center gap-2 whitespace-nowrap overflow-x-auto">
+      <div
+        className={`space-y-4 transition-all duration-300 ${selectedShuttleId ? "flex-[0.65]" : "flex-1"}`}
+      >
+        <div className="flex gap-2 mb-4 items-center flex-wrap">
           {STATUS_FILTERS.map((filter) => (
             <button
               key={filter}
               onClick={() => handleFilterClick(filter)}
-              className={`px-3 py-2 rounded-lg font-medium text-xs md:text-sm transition ${
+              className={`px-4 py-2 rounded-lg text-xs border transition-colors flex-shrink-0 ${
                 activeFilter === filter
-                  ? 'bg-emerald-900 text-white'
-                  : 'bg-white text-gray-700 border border-gray-200 hover:border-emerald-600'
+                  ? "bg-[#003B3B] text-white border-[#003B3B]"
+                  : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
               }`}
             >
               {filter}
             </button>
           ))}
+
+          {/* Filter Dropdowns */}
+          <div className="flex gap-2 ml-auto">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>All Drivers</option>
+            </select>
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>All Shuttles</option>
+            </select>
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+              <option>All Routes</option>
+            </select>
+          </div>
         </div>
 
-        {/* Dropdowns on the right */}
-        {/* <div className="flex gap-3">
-          <select className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm">
-            <option>All Drivers</option>
-          </select>
-          <select className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm">
-            <option>All Shuttles</option>
-          </select>
-          <select className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm">
-            <option>All Routes</option>
-          </select>
-        </div> */}
-      </div>
+        {/* Map Container */}
+        <div
+          className="bg-white rounded-xl shadow-sm overflow-hidden relative z-0 cursor-pointer"
+          onClick={() => setSelectedShuttleId(null)}
+        >
+          <div style={{ height: "500px", width: "100%" }}>
+            <MapContainer
+              key={mapKey}
+              center={[25.206, 55.271]}
+              zoom={16}
+              style={{ height: "100%", width: "100%" }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="&copy; OpenStreetMap contributors"
+              />
 
-      {/* Map Container */}
-      <div className="bg-white rounded-xl shadow-sm overflow-hidden relative z-0 cursor-pointer" onClick={() => setSelectedShuttleId(null)}>
-        <div style={{ height: '500px', width: '100%' }}>
-          <MapContainer
-            key={mapKey}
-            center={[25.206, 55.271]}
-            zoom={16}
-            style={{ height: '100%', width: '100%' }}
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; OpenStreetMap contributors'
-            />
-            
-            {filteredShuttles.map((shuttle) => (
-              <Marker
-                key={shuttle.id}
-                position={[shuttle.lat, shuttle.lng]}
-                icon={createMarkerIcon(shuttle.status)}
-                eventHandlers={{
-                  click: () => setSelectedShuttleId(shuttle.id)
-                }}
-              >
-                <Popup>
-                  <div className="text-sm">
-                    <p className="font-bold">{shuttle.name}</p>
-                    <p>Status: {shuttle.status}</p>
-                    <p>Passengers: {shuttle.passengers}</p>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
-        </div>
-      </div>
-
-      {/* Legend */}
-      <div>
-      
-        <div className="flex flex-wrap gap-12 items-start justify-center ">
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white font-bold text-lg">01</div>
-            <span className="text-sm font-medium">Emergency</span>
-          </div>
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-lg">01</div>
-            <span className="text-sm font-medium">On-Route</span>
-          </div>
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white font-bold text-lg">01</div>
-            <span className="text-sm font-medium">Waiting</span>
-          </div>
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-gray-800 font-bold text-lg">01</div>
-            <span className="text-sm font-medium">Idle</span>
-          </div>
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-lg">02</div>
-            <span className="text-sm font-medium">Near Full</span>
+              {filteredShuttles.map((shuttle) => (
+                <Marker
+                  key={shuttle.id}
+                  position={[shuttle.lat, shuttle.lng]}
+                  icon={createMarkerIcon(shuttle.status)}
+                  eventHandlers={{
+                    click: () => setSelectedShuttleId(shuttle.id),
+                  }}
+                >
+                  <Popup>
+                    <div className="text-sm">
+                      <p className="font-bold">{shuttle.name}</p>
+                      <p>Status: {shuttle.status}</p>
+                      <p>Passengers: {shuttle.passengers}</p>
+                    </div>
+                  </Popup>
+                </Marker>
+              ))}
+            </MapContainer>
           </div>
         </div>
-      </div>
+
+        {/* Legend */}
+        <div>
+          <div className="flex flex-wrap gap-12 items-start justify-center ">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white font-bold text-lg">
+                01
+              </div>
+              <span className="text-sm font-medium">Emergency</span>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-lg">
+                01
+              </div>
+              <span className="text-sm font-medium">On-Route</span>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white font-bold text-lg">
+                01
+              </div>
+              <span className="text-sm font-medium">Waiting</span>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-gray-800 font-bold text-lg">
+                01
+              </div>
+              <span className="text-sm font-medium">Idle</span>
+            </div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-lg">
+                02
+              </div>
+              <span className="text-sm font-medium">Near Full</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Detail Panel */}
@@ -449,7 +460,9 @@ export default function LiveMapPage() {
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
               <h2 className="text-lg font-bold">{selectedShuttle.name}</h2>
-              <p className="text-sm text-gray-500">Route: {selectedShuttle.route}</p>
+              <p className="text-sm text-gray-500">
+                Route: {selectedShuttle.route}
+              </p>
             </div>
             <div className="w-20 h204 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
               <img
@@ -462,40 +475,54 @@ export default function LiveMapPage() {
               <h2 className="text-lg font-bold">{selectedShuttle.name}</h2>
               <p className="text-sm text-gray-500">Route: {selectedShuttle.route}</p>
             </div> */}
-            < button onClick={() => setSelectedShuttleId(null)}
+            <button
+              onClick={() => setSelectedShuttleId(null)}
               className="text-gray-400 hover:text-gray-600 flex-shrink-0"
             >
               <X size={24} />
             </button>
           </div>
-            
 
           {/* Passenger Count */}
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-gray-50 p-4 rounded-lg">
               <p className="text-xs text-gray-500">Passengers</p>
-              <p className="text-xl font-bold text-emerald-600 mt-1">{selectedShuttle.passengers}</p>
+              <p className="text-xl font-bold text-emerald-600 mt-1">
+                {selectedShuttle.passengers}
+              </p>
             </div>
             <div className="bg-gray-50 p-4 rounded-lg">
               <p className="text-xs text-gray-500">Time</p>
-              <p className="text-sm font-bold text-gray-700 mt-1">{selectedShuttle.updated}</p>
+              <p className="text-sm font-bold text-gray-700 mt-1">
+                {selectedShuttle.updated}
+              </p>
             </div>
           </div>
 
           {/* Stop Information */}
           <div className="space-y-3 ">
             <div className="flex gap-3">
-              <MapPin size={18} className="text-emerald-600 flex-shrink-0 mt-1" />
+              <MapPin
+                size={18}
+                className="text-emerald-600 flex-shrink-0 mt-1"
+              />
               <div>
                 <p className="text-xs text-gray-500">Current Stop</p>
-                <p className="font-medium text-gray-800">{selectedShuttle.currentStop}</p>
+                <p className="font-medium text-gray-800">
+                  {selectedShuttle.currentStop}
+                </p>
               </div>
             </div>
             <div className="flex gap-3">
-              <Navigation size={18} className="text-blue-600 flex-shrink-0 mt-1" />
+              <Navigation
+                size={18}
+                className="text-blue-600 flex-shrink-0 mt-1"
+              />
               <div>
                 <p className="text-xs text-gray-500">Next Stop</p>
-                <p className="font-medium text-gray-800">{selectedShuttle.nextStop}</p>
+                <p className="font-medium text-gray-800">
+                  {selectedShuttle.nextStop}
+                </p>
               </div>
             </div>
           </div>
@@ -503,13 +530,19 @@ export default function LiveMapPage() {
           {/* Status */}
           <div>
             <p className="text-xs text-gray-500 mb-2">Status</p>
-            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-              selectedShuttle.status === 'Emergency' ? 'bg-red-100 text-red-600' :
-              selectedShuttle.status === 'On-Route' ? 'bg-emerald-100 text-emerald-600' :
-              selectedShuttle.status === 'Waiting' ? 'bg-gray-100 text-gray-600' :
-              selectedShuttle.status === 'Idle' ? 'bg-yellow-100 text-yellow-700' :
-              'bg-orange-100 text-orange-600'
-            }`}>
+            <span
+              className={`px-3 py-1 rounded-full text-xs font-medium ${
+                selectedShuttle.status === "Emergency"
+                  ? "bg-red-100 text-red-600"
+                  : selectedShuttle.status === "On-Route"
+                    ? "bg-emerald-100 text-emerald-600"
+                    : selectedShuttle.status === "Waiting"
+                      ? "bg-gray-100 text-gray-600"
+                      : selectedShuttle.status === "Idle"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-orange-100 text-orange-600"
+              }`}
+            >
               {selectedShuttle.status}
             </span>
           </div>

@@ -1,15 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import StopManagement from "./StopManagement";
+import ViewRouteAnalytics from "./ViewRouteAnalytics";
 
 export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect = () => {} }) {
   const selected = routes[selectedIndex] || null;
+  const [activeTab, setActiveTab] = useState("basics");
 
   return (
-    <div className="flex gap-6 items-start">
+    <div className="flex gap-6 items-stretch">
       {/* Left: compact vertical route list */}
-      <aside className="w-60">
-        <div className="space-y-3 sticky top-6">
+      <aside className="w-40 h-fit">
+        <div className="space-y-2 sticky top-6">
           {routes.map((r, i) => (
             <button
               key={r.name + i}
@@ -30,108 +33,152 @@ export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect =
       </aside>
 
       {/* Main detail area */}
-      <main className="flex-1 bg-white rounded-2xl p-6 shadow-sm ">
+      <main className="flex-1 bg-white rounded-2xl p-4 shadow-sm ">
         {selected ? (
-          <div className="space-y-6 ">
-            <div className="ml-170 -mt-5 flex justify-end">
-              <button
-                onClick={() => onSelect(null)}
-                className="text-gray-500 hover:text-gray-700 px-2 py-2 rounded-md"
-              >
-                ✕
-              </button>
-            </div>
-            {/* Header: title + top summary cards + edit */}
-            <div className="flex items-start justify-between -mt-10">
-              <div>
-                <div className="flex items-center gap-3">
-                  <h3 className="text-2xl font-semibold text-gray-900">
+          <div className="space-y-4 ">
+            {/* Header: title + summary cards inline + close button */}
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">
                     {selected.name}
                   </h3>
-                  <span className="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">
-                    Active
-                  </span>
+                  <div className="text-xs text-gray-500">
+                    Route ID: R1 •
+                  </div>
                 </div>
-                <div className="text-xs text-gray-500 mt-1">
-                  Route ID: R1 • 
-                </div>
+                <span className="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">
+                  Active
+                </span>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="hidden md:flex gap-3">
-                  <div className="bg-gray-50 rounded-lg px-4 py-3 text-center text-sm">
-                    <div className="text-xs text-gray-400">DISTANCE</div>
-                    <div className="font-semibold">7.8 km</div>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg px-4 py-3 text-center text-sm">
-                    <div className="text-xs text-gray-400">DURATION</div>
-                    <div className="font-semibold">18 mins</div>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg px-4 py-3 text-center text-sm">
-                    <div className="text-xs text-gray-400">STOPS</div>
-                    <div className="font-semibold">{selected.stops.length}</div>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg px-4 py-3 text-center text-sm">
-                    <div className="text-xs text-gray-400">ON-TIME RATE</div>
-                    <div className="font-semibold">98%</div>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg px-4 py-3 text-center text-sm">
-                    <div className="text-xs text-gray-400">COMPLAINT</div>
-                    <div className="font-semibold">96%</div>
-                  </div>
+              <div className="flex items-center gap-2">
+                <div className="bg-gray-50 rounded-lg px-3 py-2 text-center text-xs whitespace-nowrap">
+                  <div className="text-xs text-gray-400">DISTANCE</div>
+                  <div className="font-semibold text-sm">7.8 km</div>
                 </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2 text-center text-xs whitespace-nowrap">
+                  <div className="text-xs text-gray-400">DURATION</div>
+                  <div className="font-semibold text-sm">18 mins</div>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2 text-center text-xs whitespace-nowrap">
+                  <div className="text-xs text-gray-400">STOPS</div>
+                  <div className="font-semibold text-sm">{selected.stops.length}</div>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2 text-center text-xs whitespace-nowrap">
+                  <div className="text-xs text-gray-400">ON-TIME RATE</div>
+                  <div className="font-semibold text-sm">98%</div>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2 text-center text-xs whitespace-nowrap">
+                  <div className="text-xs text-gray-400">COMPLAINT</div>
+                  <div className="font-semibold text-sm">96%</div>
+                </div>
+                <button
+                  onClick={() => onSelect(null)}
+                  className="text-gray-500 hover:text-gray-700 px-2 py-2 rounded-md flex-shrink-0"
+                >
+                  ✕
+                </button>
               </div>
             </div>
 
             {/* Tabs */}
-            <div className="pt-2 border-b border-gray-100">
-              <nav className="flex items-center gap-6">
-                <button className="flex items-center gap-2 py-3 px-2 text-teal-700 border-b-2 border-teal-700">
+            <div className="pt-1 border-b border-gray-100 flex items-center justify-between">
+              <nav className="flex items-center gap-4">
+                <button 
+                  onClick={() => setActiveTab("basics")}
+                  className={`flex items-center gap-2 py-2 px-2 text-sm ${
+                    activeTab === "basics"
+                      ? "text-teal-700 border-b-2 border-teal-700"
+                      : "text-gray-600"
+                  }`}
+                >
                   Route Basics
                 </button>
-                <button className="flex items-center gap-2 py-3 px-2 text-gray-600">
+                <button 
+                  onClick={() => setActiveTab("stops")}
+                  className={`flex items-center gap-2 py-2 px-2 text-sm ${
+                    activeTab === "stops"
+                      ? "text-teal-700 border-b-2 border-teal-700"
+                      : "text-gray-600"
+                  }`}
+                >
                   Stops Management
                 </button>
-                <button className="flex items-center gap-2 py-3 px-2 text-gray-600">
+                <button 
+                  onClick={() => setActiveTab("analytics")}
+                  className={`flex items-center gap-2 py-2 px-2 text-sm ${
+                    activeTab === "analytics"
+                      ? "text-teal-700 border-b-2 border-teal-700"
+                      : "text-gray-600"
+                  }`}
+                >
                   View Route Analytics
                 </button>
               </nav>
+              <button className="bg-[#127E88] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#0f6170] transition flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5m-1.414-9.414a2 2 0 1 1 2.828 2.828L9.828 15H7v-2.828l8.586-8.586z" />
+                </svg>
+                Edit Route Details
+              </button>
             </div>
 
             {/* Route Basics form */}
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-3">
-                <label className="text-xs text-gray-500">ROUTE NAME</label>
-                <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                  {selected.name}
+            {activeTab === "basics" && (
+            <div className="mt-8 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs text-gray-500">ROUTE NAME</label>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                    {selected.name}
+                  </div>
                 </div>
 
-                <label className="text-xs text-gray-500">ROUTE ID</label>
-                <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                  R1 (Auto-generated)
-                </div>
-
-                <label className="text-xs text-gray-500">SERVICE START</label>
-                <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                  06:00 AM
+                <div className="space-y-2">
+                  <label className="text-xs text-gray-500">DESCRIPTION</label>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm">{`${selected.stops.length} stops • ${selected.avg || "-"}`}</div>
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <label className="text-xs text-gray-500">DESCRIPTION</label>
-                <div className="bg-gray-50 rounded-lg p-3 text-sm">{`${selected.stops.length} stops • ${selected.avg || "-"}`}</div>
-
-                <label className="text-xs text-gray-500">SERVICE END</label>
-                <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                  10:00 AM
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs text-gray-500">ROUTE ID</label>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                    R1 (Auto-generated)
+                  </div>
                 </div>
 
-                <label className="text-xs text-gray-500">
-                  ADDITIONAL NOTES
-                </label>
-                <div className="bg-gray-50 rounded-lg p-3 text-sm">-</div>
+                <div className="space-y-2">
+                  <label className="text-xs text-gray-500">SERVICE START</label>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                    06:00 AM
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs text-gray-500">SERVICE END</label>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                    10:00 AM
+                  </div>
+                </div>
               </div>
             </div>
+            )}
+
+            {/* Stops Management Tab */}
+            {activeTab === "stops" && (
+              <div className="mt-6">
+                <StopManagement route={selected} />
+              </div>
+            )}
+
+            {/* View Route Analytics Tab */}
+            {activeTab === "analytics" && (
+              <div className="mt-6">
+                <ViewRouteAnalytics View={selected} />
+              </div>
+            )}
           </div>
         ) : (
           <div className="text-sm text-gray-500">
