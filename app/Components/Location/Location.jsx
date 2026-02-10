@@ -2,8 +2,8 @@
 
 import { useState, useMemo } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { Copy } from "lucide-react";
-
+import { Copy,MapPin,Info } from "lucide-react";
+import ViewRouteAnalytics from "../Route/ViewRouteAnalytics";
 const DEFAULT_LOCATIONS = [
   {
     id: 1,
@@ -49,9 +49,10 @@ function Badge({ children, className = "" }) {
   );
 }
 
+
 export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
-  // start with no selection so the page shows the full-width list (first design)
   const [selectedId, setSelectedId] = useState(null);
+  const [activeTab, setActiveTab] = useState("basics"); // Default to 'basics'
 
   const selected = useMemo(() => {
     if (!selectedId) return null;
@@ -66,7 +67,6 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
 
   return (
     <div className="w-full">
-      {/* If no selection, show the original full-width rows (first design) */}
       {!selected ? (
         <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-5 px-2 sm:px-0">
           {locations.map((loc) => (
@@ -80,8 +80,12 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                   <FaMapMarkerAlt className="text-gray-500 text-xs sm:text-sm" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-medium text-xs sm:text-sm truncate">{loc.name}</p>
-                  <p className="text-[10px] sm:text-xs text-gray-500">{loc.area}</p>
+                  <p className="font-medium text-xs sm:text-sm truncate">
+                    {loc.name}
+                  </p>
+                  <p className="text-[10px] sm:text-xs text-gray-500">
+                    {loc.area}
+                  </p>
                 </div>
               </div>
 
@@ -102,7 +106,9 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                     </span>
                   ))
                 ) : (
-                  <span className="text-[10px] sm:text-xs text-gray-400">No routes</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">
+                    No routes
+                  </span>
                 )}
               </div>
 
@@ -112,8 +118,8 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                     loc.traffic === "High"
                       ? "bg-red-100 text-red-600"
                       : loc.traffic === "Medium"
-                      ? "bg-orange-100 text-orange-600"
-                      : "bg-emerald-100 text-emerald-600"
+                        ? "bg-orange-100 text-orange-600"
+                        : "bg-emerald-100 text-emerald-600"
                   }`}
                 >
                   {loc.traffic}
@@ -127,20 +133,21 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                       loc.status === "Active"
                         ? "bg-emerald-100 text-emerald-600"
                         : loc.status === "Inactive"
-                        ? "bg-gray-100 text-gray-500"
-                        : "bg-red-100 text-red-600"
+                          ? "bg-gray-100 text-gray-500"
+                          : "bg-red-100 text-red-600"
                     }`}
                   >
                     {loc.status}
                   </span>
-                  <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5 sm:mt-1">{loc.time}</p>
+                  <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5 sm:mt-1">
+                    {loc.time}
+                  </p>
                 </div>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        /* Split view: left list + right detail (second design) */
         <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
           <aside className="w-full lg:w-72 bg-transparent px-2 sm:px-0">
             <div className="space-y-2 sm:space-y-3">
@@ -159,8 +166,12 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-xs sm:text-sm truncate">{loc.name}</div>
-                    <div className="text-[10px] sm:text-xs text-gray-500 truncate">{loc.area}</div>
+                    <div className="font-medium text-xs sm:text-sm truncate">
+                      {loc.name}
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-gray-500 truncate">
+                      {loc.area}
+                    </div>
                   </div>
                 </button>
               ))}
@@ -176,45 +187,84 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
               ✕
             </button>
 
-            {selected ? (
+            {selected && (
               <div className="space-y-4 sm:space-y-6 pr-6">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 sm:gap-4">
-                  <div>
-                    <h3 className="text-sm sm:text-lg font-semibold">{selected.name}</h3>
-                    <div className="text-xs sm:text-sm text-gray-500 mt-1">{selected.category || "—"}</div>
+                  <div className="flex items-center gap-2 mt-2">
+                    <div className="bg-gray-300 rounded-xl p-2">
+                      <MapPin className="w-4 h-4 " />
+                    </div>
+                    <h3 className="text-sm sm:text-md  font-semibold">
+                      {selected.name}
+                    </h3>
                   </div>
 
                   <div className="flex items-start gap-2 sm:gap-3 flex-wrap">
                     <div className="text-[10px] sm:text-xs text-gray-500 bg-gray-50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md">
-                      <div className="font-medium whitespace-nowrap">Created On</div>
-                      <div className="text-gray-600 text-[9px] sm:text-xs">{selected.createdOn}</div>
+                      <div className="font-medium whitespace-nowrap">
+                        Created On
+                      </div>
+                      <div className="text-gray-600 text-[9px] sm:text-xs">
+                        {selected.createdOn}
+                      </div>
                     </div>
 
                     <div className="text-[10px] sm:text-xs text-gray-500 bg-gray-50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md">
-                      <div className="font-medium whitespace-nowrap">Last Updated</div>
-                      <div className="text-gray-600 text-[9px] sm:text-xs">{selected.lastUpdated}</div>
+                      <div className="font-medium whitespace-nowrap">
+                        Last Updated
+                      </div>
+                      <div className="text-gray-600 text-[9px] sm:text-xs">
+                        {selected.lastUpdated}
+                      </div>
                     </div>
 
                     <div className="text-[10px] sm:text-xs text-gray-500 bg-gray-50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md">
-                      <div className="font-medium whitespace-nowrap">Peak Hours</div>
-                      <div className="text-gray-600 text-[9px] sm:text-xs">{selected.peakHours}</div>
+                      <div className="font-medium whitespace-nowrap">
+                        Peak Hours
+                      </div>
+                      <div className="text-gray-600 text-[9px] sm:text-xs">
+                        {selected.peakHours}
+                      </div>
                     </div>
 
                     <div className="text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-md">
                       <div className="font-medium">Arrivals</div>
-                      <div className="text-gray-600">{selected.arrivals} Per Day</div>
+                      <div className="text-gray-600">
+                        {selected.arrivals} Per Day
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t pt-4">
-                  <div className="flex items-center gap-6 mb-4">
-                    <button className="text-sm font-medium text-emerald-700">Basic Information</button>
-                    <button className="text-sm text-gray-500">View Location Analytics</button>
+                <div className="pt-4">
+                  <div className="pt-1 border-b border-gray-100 flex items-center justify-between overflow-x-auto pb-1">
+                    <nav className="flex items-center gap-2 sm:gap-4">
+                      <button
+                        onClick={() => setActiveTab("basics")}
+                        className={`flex items-center gap-2 py-2 px-2 text-xs sm:text-sm whitespace-nowrap ${
+                          activeTab === "basics"
+                            ? "text-teal-700 border-b-2 border-teal-700"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        Route Basics
+                      </button>
+
+                      <button
+                        onClick={() => setActiveTab("analytics")}
+                        className={`flex items-center gap-2 py-2 px-2 text-sm ${
+                          activeTab === "analytics"
+                            ? "text-teal-700 border-b-2 border-teal-700"
+                            : "text-gray-600"
+                        }`}
+                      >
+                        View Route Analytics
+                      </button>
+                    </nav>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-2 space-y-4">
+                  {activeTab === "basics" && (
+                    <div className="mt-4">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="bg-gray-50 p-3 rounded-md">
                           <div className="text-xs text-gray-500">Full Name</div>
@@ -223,26 +273,19 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
 
                         <div className="bg-gray-50 p-3 rounded-md">
                           <div className="text-xs text-gray-500">Category</div>
-                          <div className="font-medium">{selected.category}</div>
+                          <div className="font-medium">{selected.category || "--"}</div>
                         </div>
 
                         <div className="bg-gray-50 p-3 rounded-md">
                           <div className="text-xs text-gray-500">Description</div>
-                          <div className="font-medium text-sm text-gray-700">{selected.description}</div>
+                          <div className="font-medium text-sm text-gray-700">
+                            {selected.description || "--"}
+                          </div>
                         </div>
                       </div>
 
-                      <div>
-                        <div className="flex items-center justify-between mb-3 mt-10">
-                          <h4 className="text-sm font-medium">GPS Coordinates</h4>
-                          <button
-                            onClick={copyCoords}
-                            className="flex items-center gap-2 text-xs text-emerald-700"
-                          >
-                            <Copy size={14} /> Copy
-                          </button>
-                        </div>
-
+                      <div className="mt-4">
+                        <h4 className="text-sm font-medium">GPS Coordinates</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div className="bg-gray-50 p-3 rounded-md">
                             <div className="text-xs text-gray-500">Latitude</div>
@@ -253,7 +296,6 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                             <div className="font-medium">{selected.lng}</div>
                           </div>
                         </div>
-
                         <div className="mt-4">
                           <button className="bg-emerald-900 text-white px-4 py-2 rounded-md">
                             Edit Location Details
@@ -261,19 +303,15 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                         </div>
                       </div>
                     </div>
+                  )}
 
-                    <div className="space-y-4 mt-30">
-                      <div className="w-full h-44 bg-gray-100 rounded-md flex items-center justify-center text-gray-400">
-                        Map placeholder
-                      </div>
-
-                      
+                  {activeTab === "analytics" && (
+                    <div className="mt-4">
+                      <ViewRouteAnalytics View={selected} />
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
-            ) : (
-              <div className="text-center text-gray-500">No location selected</div>
             )}
           </main>
         </div>

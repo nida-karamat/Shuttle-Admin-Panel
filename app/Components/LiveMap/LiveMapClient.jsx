@@ -269,6 +269,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { X, MapPin, Eye, Send, Navigation } from 'lucide-react';
 import dynamic from "next/dynamic";
+import { TabStyles } from "../../theme/color";
 
 const MapContainer = dynamic(() => import("react-leaflet").then(mod => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import("react-leaflet").then(mod => mod.TileLayer), { ssr: false });
@@ -355,8 +356,8 @@ export default function LiveMapPage() {
               onClick={() => handleFilterClick(filter)}
               className={`px-4 py-2 rounded-lg text-xs border transition-colors shrink-0 ${
                 activeFilter === filter
-                  ? "bg-[#003B3B] text-white border-[#003B3B]"
-                  : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                  ? `${TabStyles.solidButton.active.bg} ${TabStyles.solidButton.active.text} ${TabStyles.solidButton.active.border}`
+                  : `${TabStyles.solidButton.inactive.bg} ${TabStyles.solidButton.inactive.text} ${TabStyles.solidButton.inactive.border} ${TabStyles.solidButton.inactive.hover}`
               }`}
             >
               {filter}
@@ -455,7 +456,7 @@ export default function LiveMapPage() {
 
       {/* Detail Panel */}
       {selectedShuttle && (
-        <div className="flex-[0.32] bg-white rounded-xl shadow-lg p-6 flex flex-col gap-6 mt-20 min-h-125 overflow-y-auto">
+        <div className="flex-[0.32] bg-white rounded-xl shadow-lg p-6 flex flex-col gap-6 mt-20 min-h-[500px] overflow-y-auto">
           {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">

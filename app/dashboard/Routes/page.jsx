@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import RoutesPanel from "../../Components/Route/Routes";
+import { TabStyles } from "../../theme/color";
 
 const stats = [
   {
@@ -129,10 +130,10 @@ export default function RoutesPage() {
           <button
             key={item}
             onClick={() => setFilterStatus(item)}
-            className={`px-5 py-3 rounded-xl border border-gray-100 text-sm transition ${
+            className={`px-5 py-3 rounded-xl border text-sm transition ${
               filterStatus === item
-                ? "bg-[#003B3B] text-white"
-                : "bg-white border text-gray-600 hover:border-gray-200"
+                ? `${TabStyles.solidButton.active.bg} ${TabStyles.solidButton.active.text} ${TabStyles.solidButton.active.border}`
+                : `${TabStyles.solidButton.inactive.bg} ${TabStyles.solidButton.inactive.border} ${TabStyles.solidButton.inactive.text} ${TabStyles.solidButton.inactive.hover}`
             }`}
           >
             {item}

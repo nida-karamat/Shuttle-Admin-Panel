@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ShuttleDetail from "../../Components/ShuttleDetail";
+import { TabStyles } from "../../theme/color";
 import ShuttleActivityTimeline from "@/app/Components/Shuttle/ShuttleActivityTimeline";
 import { Dot, Bus, MessageCircleWarning } from "lucide-react";
 
@@ -274,8 +275,8 @@ export default function ShuttlesPage() {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 rounded-lg text-xs border transition-colors shrink-0 ${
                 tab === selectedTab
-                  ? "bg-[#003B3B] text-white border-[#003B3B]"
-                  : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                  ? `${TabStyles.solidButton.active.bg} ${TabStyles.solidButton.active.text} ${TabStyles.solidButton.active.border}`
+                  : `${TabStyles.solidButton.inactive.bg} ${TabStyles.solidButton.inactive.text} ${TabStyles.solidButton.inactive.border} ${TabStyles.solidButton.inactive.hover}`
               }`}
             >
               {tab}

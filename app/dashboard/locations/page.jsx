@@ -5,6 +5,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import {CircleX } from "lucide-react";
 import LocationPanel from "../../Components/Location/Location";
+import { TabStyles } from "../../theme/color";
 
 const stats = [
   {
@@ -167,8 +168,8 @@ export default function LocationsPage() {
             onClick={() => setFilter(item)}
             className={`px-3 sm:px-5 py-2 sm:py-3 rounded-lg text-xs sm:text-sm ${
               filter === item
-                ? "bg-[#003B3B] text-white"
-                : "bg-white border border-gray-200 text-gray-600"
+                ? `${TabStyles.solidButton.active.bg} ${TabStyles.solidButton.active.text} ${TabStyles.solidButton.active.border}`
+                : `${TabStyles.solidButton.inactive.bg} ${TabStyles.solidButton.inactive.border} ${TabStyles.solidButton.inactive.text}`
             }`}
           >
             {item}

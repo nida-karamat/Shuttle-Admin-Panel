@@ -5,6 +5,7 @@ import ShuttlesTab from "../../Components/analytics_insights/ShuttlesTab";
 import DriversTab from "../../Components/analytics_insights/DriversTab";
 import RoutesTab from "../../Components/analytics_insights/RoutesTab";
 import LocationsTab from "../../Components/analytics_insights/LocationsTab";
+import { TabStyles } from "../../theme/color";
 
 import { Activity, Truck, Users, Zap } from "lucide-react";
 
@@ -138,13 +139,13 @@ export default function AnalyticsInsightsPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-colors ${
                 isActive
-                  ? "text-emerald-900"
-                  : "text-gray-500 hover:text-emerald-900"
+                  ? TabStyles.underlineButton.active.text
+                  : `${TabStyles.underlineButton.inactive.text} ${TabStyles.underlineButton.inactive.hoverText}`
               }`}
             >
               {tab.label}
               {isActive && (
-                <span className="absolute left-0 right-0 -bottom-2 h-0.5 bg-emerald-500 rounded-full" />
+                <span className={`absolute left-0 right-0 -bottom-2 h-0.5 rounded-full ${TabStyles.underlineButton.active.borderColor}`} />
               )}
             </button>
           );

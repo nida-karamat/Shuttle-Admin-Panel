@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import ProfileSettings from "../../Components/Settings/ProfileSettings";
 import CompanySettings from "../../Components/Settings/CompanySettings";
+import { TabStyles } from "../../theme/color";
 import NotificationsSettings from "../../Components/Settings/NotificationsSettings";
 import SecurityPrivacySettings from "../../Components/Settings/SecurityPrivacySettings";
 import SystemPreferencesSettings from "../../Components/Settings/SystemPreferencesSettings";
@@ -64,8 +65,8 @@ export default function SettingsPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full flex items-center justify-between px-3 py-3 rounded-lg text-xs font-medium transition-colors ${
                   isActive
-                    ? "bg-[#003B3B] text-white"
-                    : "text-gray-700 hover:text-black hover:bg-gray-200"
+                    ? `${TabStyles.sidebarButton.active.bg} ${TabStyles.sidebarButton.active.text}`
+                    : `${TabStyles.sidebarButton.inactive.text} ${TabStyles.sidebarButton.inactive.hover}`
                 }`}
               >
                 <span>{tab.label}</span>
