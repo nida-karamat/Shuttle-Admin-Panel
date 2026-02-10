@@ -230,24 +230,24 @@ export default function ShuttlesPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="p-6 ">
-        <h1 className="text-3xl font-semibold mb-8 text-gray-900 font-century">
+      <div className="p-4 sm:p-6 ">
+        <h1 className="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-900 font-century">
           Shuttles Management
         </h1>
 
         {/* STATS */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-lg p-6 shadow-sm border border-gray-100"
+              className="bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-100"
             >
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <div>{stat.icon}</div>
 
                   <div>
-                    <p className="text-2xl font-bold text-gray-800">
+                    <p className="text-lg sm:text-2xl font-bold text-gray-800">
                       {stat.value}
                     </p>
                     <p className="text-gray-500 text-xs">{stat.label}</p>
@@ -272,7 +272,7 @@ export default function ShuttlesPage() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded-lg text-xs border transition-colors flex-shrink-0 ${
+              className={`px-4 py-2 rounded-lg text-xs border transition-colors shrink-0 ${
                 tab === selectedTab
                   ? "bg-[#003B3B] text-white border-[#003B3B]"
                   : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
@@ -284,13 +284,13 @@ export default function ShuttlesPage() {
 
           {/* Filter Dropdowns */}
           <div className="flex gap-2 ml-auto">
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>All Drivers</option>
             </select>
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>All Shuttles</option>
             </select>
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>All Routes</option>
             </select>
           </div>

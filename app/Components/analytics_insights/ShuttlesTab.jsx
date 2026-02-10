@@ -34,31 +34,31 @@ const performanceData = [
 
 export default function ShuttlesTab() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Bar chart style comparison */}
-      <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+      <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4 lg:p-6">
+        <div className="flex flex-col gap-2 sm:gap-3 mb-4">
           <div>
-            <h3 className="text-sm font-semibold">
+            <h3 className="text-xs sm:text-sm font-semibold">
               Shuttle Performance Comparison
             </h3>
-            <p className="text-xs text-gray-500">
+            <p className="text-[11px] sm:text-xs text-gray-500">
               Trip count and efficiency metrics
             </p>
           </div>
-          <div className="flex items-center gap-3 text-[11px] text-gray-500">
+          <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-gray-500 flex-wrap">
             <div className="flex items-center gap-1">
-              <span className="w-3 h-1.5 rounded-full bg-emerald-900" />
-              efficiency
+              <span className="w-2 h-1.5 rounded-full bg-emerald-900" />
+              <span>Efficiency</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="w-3 h-1.5 rounded-full bg-teal-400" />
-              trips
+              <span className="w-2 h-1.5 rounded-full bg-red-500" />
+              <span>Load %</span>
             </div>
           </div>
         </div>
 
-        <div className="h-64 w-full">
+        <div className="h-48 sm:h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -84,17 +84,19 @@ export default function ShuttlesTab() {
       </div>
 
       {/* Detailed metrics table */}
-      <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 overflow-x-auto">
-        <h3 className="text-sm font-semibold mb-3">Detailed Shuttle Metrics</h3>
-        <table className="min-w-full text-xs sm:text-sm">
+      <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4 lg:p-6 overflow-x-auto">
+        <h3 className="text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
+          Detailed Shuttle Metrics
+        </h3>
+        <table className="min-w-full text-xs">
           <thead>
-            <tr className="text-[11px] sm:text-xs text-gray-400 border-b">
-              <th className="text-left py-2 pr-4 font-medium">SHUTTLE ID</th>
-              <th className="text-left py-2 pr-4 font-medium">TRIPS</th>
-              <th className="text-left py-2 pr-4 font-medium">ON-TIME %</th>
-              <th className="text-left py-2 pr-4 font-medium">AVG LOAD %</th>
-              <th className="text-left py-2 pr-4 font-medium">EFFICIENCY</th>
-              <th className="text-left py-2 font-medium">STATUS</th>
+            <tr className="text-[10px] sm:text-xs text-gray-400 border-b">
+              <th className="text-left py-2 px-2 sm:px-4 font-medium">SHUTTLE ID</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">TRIPS</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">ON-TIME %</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">AVG LOAD %</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium\">EFFICIENCY</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">STATUS</th>
             </tr>
           </thead>
           <tbody>
@@ -107,17 +109,17 @@ export default function ShuttlesTab() {
                     : ""
                 }
               >
-                <td className="py-3 pr-4 text-gray-700 text-xs sm:text-sm font-medium">
+                <td className="py-2 sm:py-3 px-2 sm:px-4 text-gray-700 text-xs font-medium">
                   {row.id}
                 </td>
-                <td className="py-3 pr-4 text-gray-600">{row.trips}</td>
-                <td className={`py-3 pr-4 ${row.color} font-medium`}>
+                <td className="py-2 sm:py-3 px-1 sm:px-4 text-gray-600 text-xs">{row.trips}</td>
+                <td className={`py-2 sm:py-3 px-1 sm:px-4 font-medium text-xs ${row.color}`}>
                   {row.onTime}
                 </td>
-                <td className="py-3 pr-4 text-gray-600">{row.load}</td>
-                <td className="py-3 pr-4">
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 h-1.5 rounded-full bg-emerald-50 overflow-hidden max-w-[120px]">
+                <td className="py-2 sm:py-3 px-1 sm:px-4 text-gray-600 text-xs">{row.load}</td>
+                <td className="py-2 sm:py-3 px-1 sm:px-4">
+                  <div className="flex items-center gap-1.5">
+                    <div className="hidden sm:flex flex-1 h-1.5 rounded-full bg-emerald-50 overflow-hidden max-w-25">
                       <div className="h-full bg-emerald-500" />
                     </div>
                     <span className="text-gray-700 text-xs">
@@ -125,8 +127,8 @@ export default function ShuttlesTab() {
                     </span>
                   </div>
                 </td>
-                <td className="py-3">
-                  <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold">
+                <td className="py-2 sm:py-3 px-1 sm:px-4">
+                  <span className="px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-semibold">
                     {row.status}
                   </span>
                 </td>
@@ -134,6 +136,27 @@ export default function ShuttlesTab() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Summary cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4">
+          <p className="text-[10px] text-gray-400 mb-1">Peak Activity Day</p>
+          <p className="text-xs sm:text-sm font-semibold mb-1">Friday</p>
+          <p className="text-xs text-gray-500">190 trips • 85% avg load</p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4">
+          <p className="text-[10px] text-gray-400 mb-1">Lowest Activity</p>
+          <p className="text-xs sm:text-sm font-semibold mb-1">Sunday</p>
+          <p className="text-xs text-gray-500">60 trips • 50% avg load</p>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4">
+          <p className="text-[10px] text-gray-400 mb-1">Weekly Average</p>
+          <p className="text-xs sm:text-sm font-semibold mb-1">127 trips</p>
+          <p className="text-xs text-gray-500">Across all shuttles</p>
+        </div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export default function Login() {
       <div className="w-full md:w-1/2 bg-white flex flex-col justify-center px-8 md:px-12 lg:px-16 -mt-50">
         {/* Logo */}
         <div className="flex items-center gap-2 mt-20">
-          <div className="bg-gradient-to-b from-[#003B3B] to-[#1BA9A5] rounded-xl p-4">
+          <div className="bg-linear-to-b from-[#003B3B] to-[#1BA9A5] rounded-xl p-4">
             <Bus className="text-white" size={24} />
           </div>
           <span className="text-gray-800 font-semibold font-Arial text-2xl">
@@ -109,7 +109,7 @@ export default function Login() {
       </div>
 
       {/* RIGHT SECTION - TEAL GRADIENT */}
-      <div className="hidden md:flex md:w-1/2 bg-gradient-to-b from-[#111C20] to-[#73BACE] flex-col justify-between p-12 text-white">
+      <div className="hidden md:flex md:w-1/2 bg-linear-to-b from-[#111C20] to-[#73BACE] flex-col justify-between p-12 text-white">
         {/* Content */}
         <div>
           <h2 className="text-5xl font-semibold leading-tight mb-4">

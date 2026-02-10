@@ -295,20 +295,20 @@ export default function DriversPage() {
 
   return (
     <div className="">
-      <div className="p-6">
-        <h2 className="text-2xl font-semibold mb-6 text-[#003B3B]">Drivers Management</h2>
+      <div className="p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-[#003B3B]">Drivers Management</h2>
         
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
           {stats.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-5 border border-gray-100 flex items-center gap-4"
+              className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-100 flex items-center gap-3 sm:gap-4"
             >
-              <div className="flex-shrink-0">{item.icon}</div>
+              <div className="shrink-0">{item.icon}</div>
               <div>
-                <p className="text-gray-500 text-sm">{item.label}</p>
-                <p className="text-2xl font-semibold mt-1 text-gray-900">{item.value}</p>
+                <p className="text-gray-500 text-xs sm:text-sm">{item.label}</p>
+                <p className="text-xl sm:text-2xl font-semibold mt-1 text-gray-900">{item.value}</p>
               </div>
             </div>
           ))}
@@ -320,7 +320,7 @@ export default function DriversPage() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 rounded-lg text-xs border transition-colors flex-shrink-0 ${
+              className={`px-4 py-2 rounded-lg text-xs border transition-colors shrink-0 ${
                 activeTab === tab
                   ? "bg-[#003B3B] text-white border-[#003B3B]"
                   : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
@@ -332,13 +332,13 @@ export default function DriversPage() {
           
           {/* Filter Dropdowns */}
           <div className="flex gap-2 ml-auto">
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>Assigned Shuttle</option>
             </select>
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>Assigned Route</option>
             </select>
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>Shift</option>
             </select>
           </div>
@@ -362,10 +362,10 @@ export default function DriversPage() {
               <div className="flex-1">
                 <span>Shift Hours</span>
               </div>
-              <div className="flex-shrink-0 w-24">
+              <div className="shrink-0 w-24">
                 <span>Status</span>
               </div>
-              <div className="flex-shrink-0 text-right w-24">
+              <div className="shrink-0 text-right w-24">
                 <span>Last Activity</span>
               </div>
             </div>
@@ -393,7 +393,7 @@ export default function DriversPage() {
                             alt={d.name}
                             width={40}
                             height={40}
-                            className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                            className="w-8 h-8 rounded-full object-cover shrink-0"
                           />
                           <span className="font-medium whitespace-nowrap">{d.name}</span>
                           <span className="text-white/60">•</span>
@@ -403,12 +403,12 @@ export default function DriversPage() {
                           <span className="text-white/60">•</span>
                           <span className="whitespace-nowrap truncate">{d.shift}</span>
                           <span className="text-white/60">•</span>
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-white/20 border border-white/30 whitespace-nowrap flex-shrink-0">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-white/20 border border-white/30 whitespace-nowrap shrink-0">
                             <span className="w-1.5 h-1.5 rounded-full bg-white" />
                             {d.status}
                           </span>
                           <span className="text-white/60">•</span>
-                          <span className="ml-auto text-white/60 whitespace-nowrap flex-shrink-0 text-right">{d.last}</span>
+                          <span className="ml-auto text-white/60 whitespace-nowrap shrink-0 text-right">{d.last}</span>
                         </div>
                       ) : (
                         /* Card layout for non-selected */
@@ -419,7 +419,7 @@ export default function DriversPage() {
                               alt={d.name}
                               width={40}
                               height={40}
-                              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                              className="w-10 h-10 rounded-full object-cover shrink-0"
                             />
                             <div className="flex-1 min-w-0">
                               <p className="font-medium text-gray-900">{d.name}</p>
@@ -435,21 +435,21 @@ export default function DriversPage() {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 text-gray-700">
                               <Circle
-                                className={`w-2.5 h-2.5 flex-shrink-0 ${statusStyles[d.status].dot}`}
+                                className={`w-2.5 h-2.5 shrink-0 ${statusStyles[d.status].dot}`}
                                 fill="currentColor"
                               />
                               <span className="truncate">{d.shift}</span>
                             </div>
                           </div>
 
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs ${statusStyles[d.status].badge}`}>
                               <span className={`w-2 h-2 rounded-full ${statusStyles[d.status].dotBg}`} />
                               {d.status}
                             </span>
                           </div>
 
-                          <div className="flex-shrink-0 text-right text-gray-400 text-sm w-24">
+                          <div className="shrink-0 text-right text-gray-400 text-sm w-24">
                             {d.last}
                           </div>
                         </div>

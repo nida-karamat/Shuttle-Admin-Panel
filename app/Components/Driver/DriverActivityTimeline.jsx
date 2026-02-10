@@ -57,24 +57,24 @@ export default function DriverActivityTimeline({ driver }) {
   const currentPosition = getPosition(currentHour);
 
   return (
-    <div className="bg-white rounded-xl p-4 border border-gray-200">
-      <h4 className="text-sm font-semibold text-gray-900 mb-3">
-        Shuttle Activity Timeline
+    <div className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-200 mx-2 sm:mx-0">
+      <h4 className="text-xs sm:text-sm font-semibold text-gray-900 mb-2 sm:mb-3">
+        Driver Activity Timeline
       </h4>
 
       {/* Timeline Bar */}
-      <div className="relative mb-4">
+      <div className="relative mb-3 sm:mb-4 overflow-x-auto pb-2">
         {/* Time Markers */}
-        <div className="flex justify-between text-xs text-gray-500 mb-2 px-1">
+        <div className="flex justify-between text-[10px] sm:text-xs text-gray-500 mb-1 sm:mb-2 px-0.5 sm:px-1 min-w-full">
           {timeMarkers.map((marker, idx) => (
-            <span key={idx} className="font-medium">
+            <span key={idx} className="font-medium whitespace-nowrap text-[9px] sm:text-xs">
               {marker.label}
             </span>
           ))}
         </div>
 
         {/* Timeline Bar */}
-        <div className="relative h-12 bg-gray-100 rounded-full overflow-hidden">
+        <div className="relative h-10 sm:h-12 bg-gray-100 rounded-full overflow-hidden min-w-full">
           {/* Timeline segments: flat blocks that touch each other; container provides rounded ends */}
           {timelineSegments.map((segment, idx) => {
             const left = getPosition(segment.start);

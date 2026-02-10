@@ -32,26 +32,26 @@ export default function AddNewRule({ ruleType, onClose }) {
       : "Add Absence Rule";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="bg-white rounded-2xl w-full max-w-2xl shadow-xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-3 sm:px-4">
+      <div className="bg-white rounded-lg sm:rounded-2xl w-full max-w-2xl shadow-xl relative max-h-[90vh] overflow-y-auto no-scrollbar">
         {/* Header bar */}
-        <div className="bg-emerald-900 text-white rounded-t-2xl px-6 py-4 flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-semibold">Add New Rule</h3>
-            <p className="text-xs text-emerald-100">
+        <div className="bg-emerald-900 text-white rounded-t-lg sm:rounded-t-2xl px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
+          <div className="min-w-0">
+            <h3 className="text-sm sm:text-lg font-semibold">Add New Rule</h3>
+            <p className="text-[10px] sm:text-xs text-emerald-100 truncate">
               Create a new configuration for your fleet management
             </p>
           </div>
           <button
             onClick={onClose}
-            className="w-7 h-7 rounded-full bg-emerald-800 flex items-center justify-center text-sm"
+            className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-emerald-800 flex items-center justify-center text-xs sm:text-sm shrink-0"
           >
             ✕
           </button>
         </div>
 
         <form
-          className="p-6 space-y-5"
+          className="p-4 sm:p-6 space-y-4 sm:space-y-5"
           onSubmit={(e) => {
             e.preventDefault();
             onClose();
@@ -59,10 +59,10 @@ export default function AddNewRule({ ruleType, onClose }) {
         >
           {/* Rule type tabs */}
           <div>
-            <p className="text-xs font-semibold text-gray-600 mb-3">
+            <p className="text-[10px] sm:text-xs font-semibold text-gray-600 mb-2 sm:mb-3">
               Select Rule Type
             </p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
               {types.map((t) => {
                 const active = selectedType === t.id;
                 return (
@@ -70,14 +70,14 @@ export default function AddNewRule({ ruleType, onClose }) {
                     key={t.id}
                     type="button"
                     onClick={() => setSelectedType(t.id)}
-                    className={`rounded-xl border px-4 py-3 flex flex-col items-start gap-2 transition-all ${
+                    className={`rounded-lg sm:rounded-xl border px-3 sm:px-4 py-2 sm:py-3 flex flex-col items-start gap-1 sm:gap-2 transition-all ${
                       active
                         ? "border-emerald-500 bg-emerald-50 shadow-sm"
                         : "border-gray-200 bg-gray-50 hover:bg-gray-100"
                     }`}
                   >
                     <span
-                      className={`w-9 h-9 rounded-full flex items-center justify-center text-lg mb-1 ${
+                      className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-base sm:text-lg mb-0 sm:mb-1 ${
                         active
                           ? "bg-emerald-500 text-white"
                           : "bg-white text-gray-500"
@@ -85,7 +85,7 @@ export default function AddNewRule({ ruleType, onClose }) {
                     >
                       {t.icon}
                     </span>
-                    <span className="text-sm font-medium text-gray-800">
+                    <span className="text-xs sm:text-sm font-medium text-gray-800">
                       {t.label}
                     </span>
                   </button>
@@ -96,7 +96,7 @@ export default function AddNewRule({ ruleType, onClose }) {
 
           {/* Rule name */}
           <div className="space-y-1">
-            <label className="text-xs font-medium text-gray-700">
+            <label className="text-[10px] sm:text-xs font-medium text-gray-700">
               Rule Name <span className="text-red-500">*</span>
             </label>
             <input

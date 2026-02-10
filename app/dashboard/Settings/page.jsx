@@ -49,11 +49,11 @@ export default function SettingsPage() {
 
   return (
     <div className="">
-      <h1 className="text-2xl font-semibold  mt-3  ">Settings</h1>
-    <div className="min-h-screen flex  mt-5">
+      <h1 className="text-xl sm:text-2xl font-semibold mt-2 sm:mt-3 px-4 sm:px-6">Settings</h1>
+    <div className="min-h-screen flex mt-4 sm:mt-5">
      
       {/* Left sidebar */}
-      <aside className="hidden md:flex flex-col w-64 bg-white/30  py-6 px-4 space-y-4 mr-10 rounded-lg border border-gray-200">
+      <aside className="hidden md:flex flex-col w-64 bg-white/30 py-4 sm:py-6 px-3 sm:px-4 space-y-4 mr-6 sm:mr-10 rounded-lg border border-gray-200">
        
         <nav className="flex-1 space-y-1">
           {TABS.map((tab) => {

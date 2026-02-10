@@ -77,22 +77,22 @@ export default function StopManagement({ route }) {
   }));
 
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="space-y-3 sm:space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-6 px-2 sm:px-0 lg:px-0">
         {/* Left: Stops List */}
-        <div className="md:col-span-1">
-          <div className="space-y-2 max-h-96 overflow-y-auto">
+        <div className="lg:col-span-1">
+          <div className="space-y-1 sm:space-y-2 max-h-96 overflow-y-auto">
             {stops.map((stop, idx) => (
               <div
                 key={idx}
-                className="bg-gray-50 rounded-lg p-3 flex items-center gap-3 cursor-pointer hover:bg-gray-100 transition"
+                className="bg-gray-50 rounded-lg p-2 sm:p-3 flex items-center gap-2 sm:gap-3 cursor-pointer hover:bg-gray-100 transition"
               >
                 {/* Leading circle/icon variations */}
                 {stop.name === "Add Stop" ? (
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#0f6170] text-white flex items-center justify-center text-sm font-semibold">
+                  <div className="shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#0f6170] text-white flex items-center justify-center text-xs sm:text-sm font-semibold">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4"
+                      className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -106,15 +106,15 @@ export default function StopManagement({ route }) {
                     </svg>
                   </div>
                 ) : idx === 0 ? (
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-semibold">
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-semibold">
                     <MapPin className="w-4 h-4" />
                   </div>
                 ) : idx === 3 ? (
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-400 text-white flex items-center justify-center text-sm font-semibold">
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-red-400 text-white flex items-center justify-center text-sm font-semibold">
                     <MapPin className="w-4 h-4" />
                   </div>
                 ) : (
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#127E88] text-white flex items-center justify-center text-sm font-semibold">
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-[#127E88] text-white flex items-center justify-center text-sm font-semibold">
                     {stop.order}
                   </div>
                 )}

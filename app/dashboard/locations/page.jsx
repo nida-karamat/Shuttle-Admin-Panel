@@ -128,24 +128,24 @@ export default function LocationsPage() {
     description: l.description || "",
   }));
   return (
-    <div className="p-6  min-h-screen ">
-      <h2 className="text-2xl font-semibold mb-6 font-Century">
+    <div className="p-4 sm:p-6 min-h-screen ">
+      <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 font-Century">
         Location Management
       </h2>
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
         {stats.map((s, i) => (
-          <div key={i} className="bg-white rounded-xl p-5 shadow-sm">
-            <div className="flex items-center gap-4">
+          <div key={i} className="bg-white rounded-xl p-4 sm:p-5 shadow-sm">
+            <div className="flex items-center gap-3 sm:gap-4">
               {/* Icon box */}
-              <div className=" p-3 rounded-lg">
+              <div className=" p-2 sm:p-3 rounded-lg">
                 {s.icon}
               </div>
 
               {/* Text */}
               <div>
-                <h2 className="text-2xl font-semibold">{s.value}</h2>
-                <p className="text-sm text-gray-500">{s.title}</p>
+                <h2 className="text-lg sm:text-2xl font-semibold">{s.value}</h2>
+                <p className="text-xs sm:text-sm text-gray-500">{s.title}</p>
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function LocationsPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-5">
+      <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-5">
         {[
           "All",
           "Active",
@@ -165,7 +165,7 @@ export default function LocationsPage() {
           <button
             key={item}
             onClick={() => setFilter(item)}
-            className={`px-5 py-3 rounded-lg text-sm ${
+            className={`px-3 sm:px-5 py-2 sm:py-3 rounded-lg text-xs sm:text-sm ${
               filter === item
                 ? "bg-[#003B3B] text-white"
                 : "bg-white border border-gray-200 text-gray-600"

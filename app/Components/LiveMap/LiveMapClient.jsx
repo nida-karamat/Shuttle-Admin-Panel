@@ -181,7 +181,7 @@
 //               <h2 className="text-lg font-bold">{selectedShuttle.name}</h2>
 //               <p className="text-sm text-gray-500">Route: {selectedShuttle.route}</p>
 //             </div>
-//             <div className="w-20 h204 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+//             <div className="w-20 h204 rounded-lg overflow-hidden bg-gray-100 shrink-0">
 //               <img
 //                 src="/bus2.png"
 //                 alt={selectedShuttle.name}
@@ -193,7 +193,7 @@
 //               <p className="text-sm text-gray-500">Route: {selectedShuttle.route}</p>
 //             </div> */}
 //             < button onClick={() => setSelectedShuttleId(null)}
-//               className="text-gray-400 hover:text-gray-600 flex-shrink-0"
+//               className="text-gray-400 hover:text-gray-600 shrink-0"
 //             >
 //               <X size={24} />
 //             </button>
@@ -215,14 +215,14 @@
 //           {/* Stop Information */}
 //           <div className="space-y-3">
 //             <div className="flex gap-3">
-//               <MapPin size={18} className="text-emerald-600 flex-shrink-0 mt-1" />
+//               <MapPin size={18} className="text-emerald-600 shrink-0 mt-1" />
 //               <div>
 //                 <p className="text-xs text-gray-500">Current Stop</p>
 //                 <p className="font-medium text-gray-800">{selectedShuttle.currentStop}</p>
 //               </div>
 //             </div>
 //             <div className="flex gap-3">
-//               <Navigation size={18} className="text-blue-600 flex-shrink-0 mt-1" />
+//               <Navigation size={18} className="text-blue-600 shrink-0 mt-1" />
 //               <div>
 //                 <p className="text-xs text-gray-500">Next Stop</p>
 //                 <p className="font-medium text-gray-800">{selectedShuttle.nextStop}</p>
@@ -353,7 +353,7 @@ export default function LiveMapPage() {
             <button
               key={filter}
               onClick={() => handleFilterClick(filter)}
-              className={`px-4 py-2 rounded-lg text-xs border transition-colors flex-shrink-0 ${
+              className={`px-4 py-2 rounded-lg text-xs border transition-colors shrink-0 ${
                 activeFilter === filter
                   ? "bg-[#003B3B] text-white border-[#003B3B]"
                   : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
@@ -365,13 +365,13 @@ export default function LiveMapPage() {
 
           {/* Filter Dropdowns */}
           <div className="flex gap-2 ml-auto">
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>All Drivers</option>
             </select>
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>All Shuttles</option>
             </select>
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white flex-shrink-0">
+            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>All Routes</option>
             </select>
           </div>
@@ -455,7 +455,7 @@ export default function LiveMapPage() {
 
       {/* Detail Panel */}
       {selectedShuttle && (
-        <div className="flex-[0.32] bg-white rounded-xl shadow-lg p-6 flex flex-col gap-6 mt-20 min-h-[500px] overflow-y-auto">
+        <div className="flex-[0.32] bg-white rounded-xl shadow-lg p-6 flex flex-col gap-6 mt-20 min-h-125 overflow-y-auto">
           {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
@@ -464,7 +464,7 @@ export default function LiveMapPage() {
                 Route: {selectedShuttle.route}
               </p>
             </div>
-            <div className="w-20 h204 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+            <div className="w-20 h204 rounded-lg overflow-hidden bg-gray-100 shrink-0">
               <img
                 src="/bus2.png"
                 alt={selectedShuttle.name}
@@ -477,7 +477,7 @@ export default function LiveMapPage() {
             </div> */}
             <button
               onClick={() => setSelectedShuttleId(null)}
-              className="text-gray-400 hover:text-gray-600 flex-shrink-0"
+              className="text-gray-400 hover:text-gray-600 shrink-0"
             >
               <X size={24} />
             </button>
@@ -504,7 +504,7 @@ export default function LiveMapPage() {
             <div className="flex gap-3">
               <MapPin
                 size={18}
-                className="text-emerald-600 flex-shrink-0 mt-1"
+                className="text-emerald-600 shrink-0 mt-1"
               />
               <div>
                 <p className="text-xs text-gray-500">Current Stop</p>
@@ -516,7 +516,7 @@ export default function LiveMapPage() {
             <div className="flex gap-3">
               <Navigation
                 size={18}
-                className="text-blue-600 flex-shrink-0 mt-1"
+                className="text-blue-600 shrink-0 mt-1"
               />
               <div>
                 <p className="text-xs text-gray-500">Next Stop</p>

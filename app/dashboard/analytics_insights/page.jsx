@@ -85,18 +85,18 @@ export default function AnalyticsInsightsPage() {
   const [activeTab, setActiveTab] = useState("overview");
 
   return (
-    <div className="p-6 min-h-screen space-y-6">
+    <div className="p-4 sm:p-6 min-h-screen space-y-4 sm:space-y-6">
       <div className="flex flex-col gap-4">
-        <h2 className="text-2xl font-semibold text-[#003B3B]">
+        <h2 className="text-xl sm:text-2xl font-semibold text-[#003B3B]">
           Analytics &amp; Insights
         </h2>
 
         {/* KPI CARDS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
           {kpiCards.map((card, idx) => (
             <div
               key={idx}
-              className="relative bg-white rounded-2xl px-5 py-4 flex items-center gap-4 shadow-sm"
+              className="relative bg-white rounded-2xl px-4 sm:px-5 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 shadow-sm"
             >
               {/* Left icon */}
               <div
@@ -107,7 +107,7 @@ export default function AnalyticsInsightsPage() {
 
               {/* Center text */}
               <div className="flex-1">
-                <p className="text-2xl font-semibold leading-tight">
+                <p className="text-lg sm:text-2xl font-semibold leading-tight">
                   {card.value}
                 </p>
                 <p className="text-xs text-gray-500 mt-1">{card.label}</p>
@@ -129,7 +129,7 @@ export default function AnalyticsInsightsPage() {
       </div>
 
       {/* TAB NAV */}
-      <div className="bg-white rounded-2xl shadow-sm px-4 sm:px-6 py-2 flex flex-wrap gap-3 items-center">
+      <div className="bg-white rounded-2xl shadow-sm px-3 sm:px-4 lg:px-6 py-2 flex flex-wrap gap-2 sm:gap-3 items-center">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -163,12 +163,12 @@ export default function AnalyticsInsightsPage() {
 
 function OverviewTab() {
   return (
-    <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
       {/* MAIN CHART */}
-      <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+      <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4 lg:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 mb-3 sm:mb-4">
           <div>
-            <h3 className="text-sm font-semibold">Trip Volume &amp; Passenger Load</h3>
+            <h3 className="text-xs sm:text-sm font-semibold">Trip Volume &amp; Passenger Load</h3>
             <p className="text-xs text-gray-500">
               Weekly trends and analytics
             </p>
@@ -262,7 +262,7 @@ function OverviewTab() {
             </ResponsiveContainer>
 
             {/* Legend - 2x2 Grid */}
-            <div className="grid grid-cols-2 gap-8 w-full text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 w-full text-xs">
               {[
                 { label: "On Route", value: 18, color: "bg-emerald-500" },
                 { label: "At Stop", value: 4, color: "bg-sky-400" },

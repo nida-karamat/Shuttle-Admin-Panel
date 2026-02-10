@@ -15,82 +15,80 @@ export default function DriverDetails({ driver, onClose }) {
   };
 
   return (
-    <div className="w-full lg:w-96 bg-white border-l border-gray-200 h-screen flex flex-col ">
+    <div className="w-full lg:w-96 bg-white border-l border-gray-200 h-screen flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex-shrink-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <div className="shrink-0 bg-white border-b border-gray-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <Image
             src={driver.avatar || "/Shuttle/S1.png"}
             alt={driver.name}
             width={40}
             height={40}
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-8 sm:w-10 h-8 sm:h-10 rounded-full object-cover shrink-0"
           />
-          <div>
-            <h3 className="font-semibold text-gray-900">{driver.name}</h3>
-            <div className="flex items-center gap-2 mt-1">
-              <span className={`text-xs px-2 py-0.5 rounded-full ${statusStyles[driver.status]}`}>
+          <div className="min-w-0">
+            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 truncate">{driver.name}</h3>
+            <div className="flex items-center gap-1 mt-0.5 flex-wrap">
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${statusStyles[driver.status]}`}>
                 {driver.status}
               </span>
-              <span className="text-xs text-gray-500">Driver ID: {driver.id}</span>
+              <span className="text-[10px] text-gray-500 truncate">ID: {driver.id}</span>
             </div>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-gray-400 hover:text-gray-600 transition-colors shrink-0"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 sm:w-5 h-4 sm:h-5" />
         </button>
       </div>
 
-      {/* Filter Dropdowns */}
-      
-
-      <div className="flex-1  p-4 space-y-3">
+      {/* Scrollable content */}
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
         {/* Driver Summary */}
         <section>
-          <h4 className="text-xs font-semibold text-gray-600 mb-2 uppercase">Driver Summary</h4>
-          <div className="grid grid-cols-2 gap-2">
+          <h4 className="text-[10px] font-semibold text-gray-600 mb-2 uppercase">Driver Summary</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
-              <Phone className="w-4 h-4 text-blue-600 flex-shrink-0" />
+              <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Phone</p>
-                <p className="text-xs font-medium text-gray-900 truncate">{driver.phone}</p>
+                <p className="text-[10px] text-gray-500">Phone</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">{driver.phone}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
-              <Mail className="w-4 h-4 text-purple-600 flex-shrink-0" />
+              <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Email</p>
-                <p className="text-xs font-medium text-gray-900 truncate">{driver.email}</p>
+                <p className="text-[10px] text-gray-500">Email</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">{driver.email}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
-              <CreditCard className="w-4 h-4 text-green-600 flex-shrink-0" />
+              <CreditCard className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">License Type</p>
-                <p className="text-xs font-medium text-gray-900 truncate">{driver.license}</p>
+                <p className="text-[10px] text-gray-500">License Type</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">{driver.license}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 bg-teal-50 rounded-lg">
-              <Bus className="w-4 h-4 text-teal-600 flex-shrink-0" />
+              <Bus className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Assigned Shuttle</p>
-                <p className="text-xs font-medium text-gray-900 truncate">
+                <p className="text-[10px] text-gray-500">Assigned Shuttle</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">
                   {driver.shuttle !== "-" ? driver.shuttle : "Not Assigned"}
                 </p>
               </div>
             </div>
 
-            <div className="col-span-2 flex items-center gap-2 p-2 bg-orange-50 rounded-lg">
-              <Clock className="w-4 h-4 text-orange-600 flex-shrink-0" />
+            <div className="col-span-1 sm:col-span-2 flex items-center gap-2 p-2 bg-orange-50 rounded-lg">
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Shift</p>
-                <p className="text-xs font-medium text-gray-900">{driver.shift}</p>
+                <p className="text-[10px] text-gray-500">Shift</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900">{driver.shift}</p>
               </div>
             </div>
           </div>
@@ -98,37 +96,37 @@ export default function DriverDetails({ driver, onClose }) {
 
         {/* Live Activity */}
         <section>
-          <h4 className="text-xs font-semibold text-gray-600 mb-2 uppercase">Live Activity</h4>
-          <div className="grid grid-cols-2 gap-2">
+          <h4 className="text-[10px] font-semibold text-gray-600 mb-2 uppercase">Live Activity</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <div className="flex items-center gap-2 p-2 bg-yellow-50 rounded-lg">
-              <Zap className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+              <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-yellow-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Current Action</p>
-                <p className="text-xs font-medium text-gray-900 truncate">{driver.currentAction || "Driving"}</p>
+                <p className="text-[10px] text-gray-500">Current Action</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">{driver.currentAction || "Driving"}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
-              <Calendar className="w-4 h-4 text-blue-600 flex-shrink-0" />
+              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Last Event</p>
-                <p className="text-xs font-medium text-gray-900 truncate">{driver.lastEvent || "Route started"}</p>
+                <p className="text-[10px] text-gray-500">Last Event</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">{driver.lastEvent || "Route started"}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 bg-orange-50 rounded-lg">
-              <Clock className="w-4 h-4 text-orange-600 flex-shrink-0" />
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-orange-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Next Break</p>
-                <p className="text-xs font-medium text-gray-900 truncate">{driver.nextBreak || "11:30 AM"}</p>
+                <p className="text-[10px] text-gray-500">Next Break</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">{driver.nextBreak || "11:30 AM"}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 bg-gray-100 rounded-lg">
-              <RefreshCw className="w-4 h-4 text-gray-600 flex-shrink-0" />
+              <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Last Updated</p>
-                <p className="text-xs font-medium text-gray-900 truncate">{driver.last}</p>
+                <p className="text-[10px] text-gray-500">Last Updated</p>
+                <p className="text-[10px] sm:text-xs font-medium text-gray-900 truncate">{driver.last}</p>
               </div>
             </div>
           </div>
@@ -136,36 +134,36 @@ export default function DriverDetails({ driver, onClose }) {
 
         {/* Performance Summary */}
         <section>
-          <h4 className="text-xs font-semibold text-gray-600 mb-2 uppercase">Performance Summary</h4>
-          <div className="grid grid-cols-3 gap-2">
+          <h4 className="text-[10px] font-semibold text-gray-600 mb-2 uppercase">Performance Summary</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             <div className="flex items-center gap-2 p-2 bg-teal-50 rounded-lg">
-              <Target className="w-4 h-4 text-teal-600 flex-shrink-0" />
+              <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">On-time</p>
-                <p className="text-xs font-semibold text-gray-900">{driver.onTimeRate || "98%"}</p>
+                <p className="text-[10px] text-gray-500">On-time</p>
+                <p className="text-[10px] sm:text-xs font-semibold text-gray-900">{driver.onTimeRate || "98%"}</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
-              <MapPin className="w-4 h-4 text-purple-600 flex-shrink-0" />
+              <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Trips</p>
-                <p className="text-xs font-semibold text-gray-900">{driver.tripsThisWeek || "24"}</p>
+                <p className="text-[10px] text-gray-500">Rating</p>
+                <p className="text-[10px] sm:text-xs font-semibold text-gray-900">{driver.rating || "4.8"}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
-              <Shield className="w-4 h-4 text-green-600 flex-shrink-0" />
+            <div className="flex items-center gap-2 p-2 bg-red-50 rounded-lg col-span-2 sm:col-span-1">
+              <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-600 shrink-0" />
               <div className="min-w-0">
-                <p className="text-xs text-gray-500">Safety</p>
-                <p className="text-xs font-semibold text-gray-900">{driver.safetyScore || "95"}</p>
+                <p className="text-[10px] text-gray-500">Incidents</p>
+                <p className="text-[10px] sm:text-xs font-semibold text-gray-900">{driver.incidents || "2"}</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Action Buttons */}
-        <section className="flex-shrink-0 space-y-2 pt-2 border-t border-gray-200">
+        <section className="shrink-0 space-y-2 pt-2 border-t border-gray-200">
           <button className="w-full flex items-center justify-center gap-2 bg-teal-600 text-white px-3 py-2 rounded-lg hover:bg-teal-700 transition-colors text-xs font-medium">
             <MessageCircle className="w-4 h-4" />
             Send Message

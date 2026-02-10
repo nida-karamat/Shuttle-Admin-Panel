@@ -34,29 +34,29 @@ const routes = [
 
 export default function RoutesTab() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Line chart style analysis */}
-      <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+      <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4 lg:p-6">
+        <div className="flex flex-col gap-2 sm:gap-3 mb-4">
           <div>
-            <h3 className="text-sm font-semibold">Route Efficiency Analysis</h3>
-            <p className="text-xs text-gray-500">
+            <h3 className="text-xs sm:text-sm font-semibold">Route Efficiency Analysis</h3>
+            <p className="text-[11px] sm:text-xs text-gray-500">
               Average trip time and on-time performance
             </p>
           </div>
-          <div className="flex items-center gap-3 text-[11px] text-gray-500">
+          <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-gray-500 flex-wrap">
             <div className="flex items-center gap-1">
-              <span className="w-3 h-1.5 rounded-full bg-emerald-900" />
-              Avg Time (min)
+              <span className="w-2 h-1.5 rounded-full bg-emerald-900" />
+              <span>Avg Time</span>
             </div>
             <div className="flex items-center gap-1">
-              <span className="w-3 h-1.5 rounded-full bg-teal-400" />
-              On-Time %
+              <span className="w-2 h-1.5 rounded-full bg-teal-400" />
+              <span>On-Time %</span>
             </div>
           </div>
         </div>
 
-        <div className="relative overflow-hidden h-64">
+        <div className="relative overflow-hidden h-48 sm:h-64">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}
@@ -100,43 +100,41 @@ export default function RoutesTab() {
       </div>
 
       {/* Route performance table */}
-      <div className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 overflow-x-auto">
-        <h3 className="text-sm font-semibold mb-3">
+      <div className="bg-white rounded-2xl shadow-sm p-3 sm:p-4 lg:p-6 overflow-x-auto">
+        <h3 className="text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
           Route Performance Details
         </h3>
-        <table className="min-w-full text-xs sm:text-sm">
+        <table className="min-w-full text-xs">
           <thead>
-            <tr className="text-[11px] sm:text-xs text-gray-400 border-b">
-              <th className="text-left py-2 pr-4 font-medium">ROUTE</th>
-              <th className="text-left py-2 pr-4 font-medium">AVG TIME</th>
-              <th className="text-left py-2 pr-4 font-medium">ON-TIME %</th>
-              <th className="text-left py-2 pr-4 font-medium">CAPACITY</th>
-              <th className="text-left py-2 pr-4 font-medium">SATISFACTION</th>
-              <th className="text-left py-2 font-medium">PERFORMANCE</th>
+            <tr className="text-[10px] sm:text-xs text-gray-400 border-b">
+              <th className="text-left py-2 px-2 sm:px-4 font-medium">ROUTE</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">AVG TIME</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">ON-TIME %</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">CAPACITY</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">SATISFACTION</th>
+              <th className="text-left py-2 px-1 sm:px-4 font-medium">PERFORMANCE</th>
             </tr>
           </thead>
           <tbody>
             {routes.map((r, idx) => (
               <tr
                 key={r.name}
-                className={
-                  idx !== routes.length - 1 ? "border-b border-gray-100" : ""
-                }
+                className={idx !== routes.length - 1 ? "border-b border-gray-100" : ""}
               >
-                <td className="py-3 pr-4 text-gray-700 text-xs sm:text-sm font-medium">
+                <td className="py-2 sm:py-3 px-2 sm:px-4 text-gray-700 text-xs font-medium">
                   {r.name}
                 </td>
-                <td className="py-3 pr-4 text-gray-600">{r.avgTime}</td>
-                <td className={`py-3 pr-4 ${r.color} font-medium`}>
+                <td className="py-2 sm:py-3 px-1 sm:px-4 text-gray-600 text-xs">{r.avgTime}</td>
+                <td className={`py-2 sm:py-3 px-1 sm:px-4 font-medium text-xs ${r.color}`}>
                   {r.onTime}
                 </td>
-                <td className="py-3 pr-4 text-gray-600">{r.capacity}</td>
-                <td className="py-3 pr-4  text-xs sm:text-sm">
+                <td className="py-2 sm:py-3 px-1 sm:px-4 text-gray-600 text-xs">{r.capacity}</td>
+                <td className="py-2 sm:py-3 px-1 sm:px-4 text-xs">
                   <span className="text-[#]">★</span> {r.satisfaction}
                 </td>
-                <td className="py-3">
+                <td className="py-2 sm:py-3 px-1 sm:px-4">
                   <span
-                    className={`px-3 py-1 rounded-full text-[11px] font-semibold ${
+                    className={`px-2 py-1 rounded-full text-[10px] font-semibold ${
                       r.performance === "EXCELLENT"
                         ? "bg-emerald-50 text-emerald-700"
                         : r.performance === "GOOD"

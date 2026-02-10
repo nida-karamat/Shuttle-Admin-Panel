@@ -68,46 +68,47 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
     <div className="w-full">
       {/* If no selection, show the original full-width rows (first design) */}
       {!selected ? (
-        <div className="space-y-3 mt-5">
+        <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-5 px-2 sm:px-0">
           {locations.map((loc) => (
             <div
               key={loc.id}
               onClick={() => setSelectedId(loc.id)}
-              className="bg-white rounded-xl px-4 py-4 shadow-sm grid grid-cols-12 items-center cursor-pointer hover:shadow-md transition"
+              className="bg-white rounded-lg sm:rounded-xl px-3 sm:px-4 py-3 sm:py-4 shadow-sm grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-0 items-start sm:items-center cursor-pointer hover:shadow-md transition"
             >
-              <div className="col-span-3 flex items-start gap-3">
-                <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center mt-1">
-                  <FaMapMarkerAlt className="text-gray-500 text-sm" />
+              <div className="sm:col-span-3 flex items-start gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
+                  <FaMapMarkerAlt className="text-gray-500 text-xs sm:text-sm" />
                 </div>
-                <div>
-                  <p className="font-medium text-sm">{loc.name}</p>
-                  <p className="text-xs text-gray-500">{loc.area}</p>
+                <div className="min-w-0">
+                  <p className="font-medium text-xs sm:text-sm truncate">{loc.name}</p>
+                  <p className="text-[10px] sm:text-xs text-gray-500">{loc.area}</p>
                 </div>
               </div>
 
-              <div className="col-span-2 text-xs">
-                <p>{loc.lat}</p>
-                <p className="text-gray-500">{loc.lng}</p>
+              <div className="sm:col-span-2 text-[10px] sm:text-xs">
+                <p className="text-gray-700 hidden sm:block">{loc.lat}</p>
+                <p className="text-gray-500 hidden sm:block">{loc.lng}</p>
+                <p className="sm:hidden text-gray-700">{loc.lat}</p>
               </div>
 
-              <div className="col-span-3 flex flex-wrap gap-2">
+              <div className="sm:col-span-3 flex flex-wrap gap-1 sm:gap-2">
                 {loc.routes && loc.routes.length ? (
                   loc.routes.map((r, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 rounded-full bg-gray-100 text-xs text-gray-600"
+                      className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-gray-100 text-[10px] sm:text-xs text-gray-600 truncate"
                     >
                       {r}
                     </span>
                   ))
                 ) : (
-                  <span className="text-xs text-gray-400">No routes</span>
+                  <span className="text-[10px] sm:text-xs text-gray-400">No routes</span>
                 )}
               </div>
 
-              <div className="col-span-2">
+              <div className="sm:col-span-2">
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium ${
                     loc.traffic === "High"
                       ? "bg-red-100 text-red-600"
                       : loc.traffic === "Medium"
@@ -119,10 +120,10 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                 </span>
               </div>
 
-              <div className="col-span-2 text-right">
-                <div className="inline-block">
+              <div className="sm:col-span-2 sm:text-right">
+                <div>
                   <span
-                    className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium ${
                       loc.status === "Active"
                         ? "bg-emerald-100 text-emerald-600"
                         : loc.status === "Inactive"
@@ -132,7 +133,7 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                   >
                     {loc.status}
                   </span>
-                  <p className="text-xs text-gray-400 mt-1">{loc.time}</p>
+                  <p className="text-[10px] sm:text-xs text-gray-400 mt-0.5 sm:mt-1">{loc.time}</p>
                 </div>
               </div>
             </div>
@@ -140,63 +141,63 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
         </div>
       ) : (
         /* Split view: left list + right detail (second design) */
-        <div className="flex flex-col lg:flex-row gap-6">
-          <aside className="w-full lg:w-72 bg-transparent">
-            <div className="space-y-3">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
+          <aside className="w-full lg:w-72 bg-transparent px-2 sm:px-0">
+            <div className="space-y-2 sm:space-y-3">
               {locations.map((loc) => (
                 <button
                   key={loc.id}
                   onClick={() => setSelectedId(loc.id)}
-                  className={`w-full text-left flex items-start gap-3 p-3 rounded-xl transition-shadow border border-transparent hover:shadow-sm ${
+                  className={`w-full text-left flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl transition-shadow border border-transparent hover:shadow-sm ${
                     loc.id === selectedId
                       ? "bg-[#e9f7f6] shadow-inner border-l-4 border-emerald-800"
                       : "bg-white"
                   }`}
                 >
-                  <div className="w-11 h-11 rounded-full bg-gray-100 flex items-center justify-center">
-                    <FaMapMarkerAlt className="text-gray-500" />
+                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
+                    <FaMapMarkerAlt className="text-gray-500 text-xs sm:text-sm" />
                   </div>
 
-                  <div className="flex-1">
-                    <div className="font-medium">{loc.name}</div>
-                    <div className="text-xs text-gray-500">{loc.area}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-xs sm:text-sm truncate">{loc.name}</div>
+                    <div className="text-[10px] sm:text-xs text-gray-500 truncate">{loc.area}</div>
                   </div>
                 </button>
               ))}
             </div>
           </aside>
 
-          <main className="flex-1 bg-white rounded-xl p-6 shadow-sm relative">
+          <main className="flex-1 bg-white rounded-lg sm:rounded-xl p-3 sm:p-6 shadow-sm relative mx-2 sm:mx-0">
             <button
               onClick={() => setSelectedId(null)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              className="absolute top-3 sm:top-4 right-3 sm:right-4 text-gray-500 hover:text-gray-700 text-lg sm:text-xl"
               aria-label="Close details"
             >
               ✕
             </button>
 
             {selected ? (
-              <div className="space-y-6">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="space-y-4 sm:space-y-6 pr-6">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 sm:gap-4">
                   <div>
-                    <h3 className="text-lg font-semibold">{selected.name}</h3>
-                    <div className="text-sm text-gray-500 mt-1">{selected.category || "—"}</div>
+                    <h3 className="text-sm sm:text-lg font-semibold">{selected.name}</h3>
+                    <div className="text-xs sm:text-sm text-gray-500 mt-1">{selected.category || "—"}</div>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <div className="text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-md">
-                      <div className="font-medium">Created On</div>
-                      <div className="text-gray-600">{selected.createdOn}</div>
+                  <div className="flex items-start gap-2 sm:gap-3 flex-wrap">
+                    <div className="text-[10px] sm:text-xs text-gray-500 bg-gray-50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md">
+                      <div className="font-medium whitespace-nowrap">Created On</div>
+                      <div className="text-gray-600 text-[9px] sm:text-xs">{selected.createdOn}</div>
                     </div>
 
-                    <div className="text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-md">
-                      <div className="font-medium">Last Updated</div>
-                      <div className="text-gray-600">{selected.lastUpdated}</div>
+                    <div className="text-[10px] sm:text-xs text-gray-500 bg-gray-50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md">
+                      <div className="font-medium whitespace-nowrap">Last Updated</div>
+                      <div className="text-gray-600 text-[9px] sm:text-xs">{selected.lastUpdated}</div>
                     </div>
 
-                    <div className="text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-md">
-                      <div className="font-medium">Peak Hours</div>
-                      <div className="text-gray-600">{selected.peakHours}</div>
+                    <div className="text-[10px] sm:text-xs text-gray-500 bg-gray-50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-md">
+                      <div className="font-medium whitespace-nowrap">Peak Hours</div>
+                      <div className="text-gray-600 text-[9px] sm:text-xs">{selected.peakHours}</div>
                     </div>
 
                     <div className="text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-md">

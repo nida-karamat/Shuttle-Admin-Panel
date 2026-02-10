@@ -60,21 +60,21 @@ export default function DriverSettingsPage() {
   };
 
   return (
-    <div className="p-6 min-h-screen space-y-6">
-      <h2 className="text-2xl font-semibold mb-6 text-[#003B3B]">
+    <div className="p-4 sm:p-6 min-h-screen space-y-4 sm:space-y-6">
+      <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-[#003B3B]">
         Break & Server Hours Configuration
       </h2>
 
       {/* ===== TOP STATS ===== */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         {stats.map((item, i) => (
           <div
             key={i}
-            className="bg-white rounded-xl p-5 flex items-center justify-between shadow-sm"
+            className="bg-white rounded-xl p-4 sm:p-5 flex items-center justify-between shadow-sm"
           >
             <div>
               <p className="text-xs text-gray-500">{item.title}</p>
-              <h3 className="text-2xl font-semibold mt-1">{item.value}</h3>
+              <h3 className="text-lg sm:text-2xl font-semibold mt-1">{item.value}</h3>
             </div>
             {/* <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
               {item.icon}
@@ -85,11 +85,11 @@ export default function DriverSettingsPage() {
 
       {/* ===== MAIN GRID ===== */}
       {/* lg:grid-cols-4 so that one card can take 2 columns and the other 2 stay narrow */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* ================= LEFT: BREAK RULES ================= */}
         <div
-          className={`bg-white rounded-xl shadow-sm p-5 transition-all duration-300 ${
-            activeCard === "break" ? "lg:col-span-2" : "lg:col-span-1"
+          className={`bg-white rounded-xl shadow-sm p-4 sm:p-5 transition-all duration-300 ${
+            activeCard === "break" ? "md:col-span-2 lg:col-span-2" : "md:col-span-1 lg:col-span-1"
           }`}
         >
           <div className="flex items-center justify-between mb-4">

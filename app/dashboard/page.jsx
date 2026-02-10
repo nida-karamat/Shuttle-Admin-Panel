@@ -127,27 +127,27 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen ">
-      <div className="p-6">
-        <h1 className="text-3xl font-semibold mb-8 text-gray-900 font-century">
+      <div className="p-4 sm:p-6">
+        <h1 className="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-900 font-century">
           Dashboard
         </h1>
 
         {/* STATS CARDS - INLINE HORIZONTAL */}
-        <div className="grid grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100"
+              className="bg-white rounded-3xl p-4 sm:p-6 shadow-sm border border-gray-100"
             >
               <div className="flex flex-col items-start justify-between gap-4">
                 <div className="flex items-start justify-between w-full">
                   <div>
                     <p className="text-gray-500 text-xs mb-1">{stat.title}</p>
-                    <p className="text-2xl font-bold text-gray-800">
+                    <p className="text-xl sm:text-2xl font-bold text-gray-800">
                       {stat.value}
                     </p>
                   </div>
-                  <span className="text-2xl">{stat.icon}</span>
+                  <span className="text-xl sm:text-2xl">{stat.icon}</span>
                 </div>
                 <div className="flex items-center gap-1 ml-30">
                   {stat.isPositive ? (
@@ -169,13 +169,13 @@ export default function Dashboard() {
         </div>
 
         {/* CHART SECTION - FULL WIDTH */}
-        <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 mb-6">
-          <div className="flex items-center justify-between mb-6">
+        <div className="bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-100 mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between gap-4 sm:gap-6 mb-6">
             <div>
-              <h2 className="text-lg font-bold text-gray-800">
+              <h2 className="text-base sm:text-lg font-bold text-gray-800">
                 Route Utilization (This Week)
               </h2>
-              <p className="text-gray-500 text-sm">
+              <p className="text-gray-500 text-xs sm:text-sm">
                 Tracks passenger demand and shuttle load percentage across major
                 routes
               </p>
@@ -204,17 +204,17 @@ export default function Dashboard() {
         </div>
 
         {/* BOTTOM SECTION - 2 COLUMNS */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* LEFT - OPERATIONAL ACTIVITY */}
-          <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-100">
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-100">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
               <div>
-                <h2 className="text-base font-bold text-gray-900">
+                <h2 className="text-sm sm:text-base font-bold text-gray-900">
                   Live Operational Activity
                 </h2>
                 <p className="text-gray-500 text-xs mt-1">November 28, 2025</p>
               </div>
-              <div className="flex gap-1">
+              <div className="flex gap-1 text-xs sm:text-sm">
                 {["M", "T", "W", "T", "F", "S", "S"].map((day, idx) => (
                   <span
                     key={idx}
@@ -233,7 +233,7 @@ export default function Dashboard() {
                 <div key={idx} className="flex gap-3 pb-4">
                   <div className="relative flex flex-col items-center">
                     <div
-                      className={`${activity.color} rounded-full w-3 h-3 flex-shrink-0 mt-1 z-10`}
+                      className={`${activity.color} rounded-full w-3 h-3 shrink-0 mt-1 z-10`}
                     ></div>
                     {idx < operationalActivities.length - 1 && (
                       <div
@@ -255,9 +255,9 @@ export default function Dashboard() {
           </div>
 
           {/* RIGHT - ALL SHUTTLES */}
-          <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base font-bold text-gray-900">
+              <h2 className="text-sm sm:text-base font-bold text-gray-900">
                 All Shuttles
               </h2>
               <a href="#" className="text-teal-600 text-sm hover:underline">
