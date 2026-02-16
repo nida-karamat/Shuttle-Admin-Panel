@@ -349,6 +349,9 @@ export default function LiveMapPage() {
       <div
         className={`space-y-4 transition-all duration-300 ${selectedShuttleId ? "flex-[0.65]" : "flex-1"}`}
       >
+        <h1 className="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-900 font-stretch ">
+          Live Maps
+        </h1>
         <div className="flex gap-2 mb-4 items-center flex-wrap">
           {STATUS_FILTERS.map((filter) => (
             <button
@@ -365,8 +368,8 @@ export default function LiveMapPage() {
           ))}
 
           {/* Filter Dropdowns */}
-          <div className="flex gap-2 ml-auto">
-            <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
+          <div className="flex gap-2 ml-auto ">
+            <select className="text-sm border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
               <option>All Drivers</option>
             </select>
             <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
@@ -465,7 +468,7 @@ export default function LiveMapPage() {
                 Route: {selectedShuttle.route}
               </p>
             </div>
-            <div className="w-20 h204 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+            <div className="w-20  rounded-lg overflow-hidden bg-gray-100 shrink-0">
               <img
                 src="/bus2.png"
                 alt={selectedShuttle.name}
@@ -503,10 +506,7 @@ export default function LiveMapPage() {
           {/* Stop Information */}
           <div className="space-y-3 ">
             <div className="flex gap-3">
-              <MapPin
-                size={18}
-                className="text-emerald-600 shrink-0 mt-1"
-              />
+              <MapPin size={18} className="text-emerald-600 shrink-0 mt-1" />
               <div>
                 <p className="text-xs text-gray-500">Current Stop</p>
                 <p className="font-medium text-gray-800">
@@ -515,10 +515,7 @@ export default function LiveMapPage() {
               </div>
             </div>
             <div className="flex gap-3">
-              <Navigation
-                size={18}
-                className="text-blue-600 shrink-0 mt-1"
-              />
+              <Navigation size={18} className="text-blue-600 shrink-0 mt-1" />
               <div>
                 <p className="text-xs text-gray-500">Next Stop</p>
                 <p className="font-medium text-gray-800">

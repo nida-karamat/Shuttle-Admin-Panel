@@ -66,7 +66,7 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
   }
 
   return (
-    <div className="w-full">
+    <div className="">
       {!selected ? (
         <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-5 px-2 sm:px-0">
           {locations.map((loc) => (
@@ -155,7 +155,7 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                 <button
                   key={loc.id}
                   onClick={() => setSelectedId(loc.id)}
-                  className={`w-full text-left flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl transition-shadow border border-transparent hover:shadow-sm ${
+                  className={`w-70 text-left flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg sm:rounded-xl s transition-shadow border border-transparent hover:shadow-sm ${
                     loc.id === selectedId
                       ? "bg-[#e9f7f6] shadow-inner border-l-4 border-emerald-800"
                       : "bg-white"
@@ -264,43 +264,87 @@ export default function LocationPanel({ locations = DEFAULT_LOCATIONS }) {
                   </div>
 
                   {activeTab === "basics" && (
-                    <div className="mt-4">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-gray-50 p-3 rounded-md">
-                          <div className="text-xs text-gray-500">Full Name</div>
-                          <div className="font-medium">{selected.name}</div>
+                    <div className="mt-4 space-y-4">
+                      {/* Full Name, Category, Description - Inline */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+                          <div className="text-xs text-gray-500 mb-1">
+                            Full Name
+                          </div>
+                          <div className="font-medium text-sm">
+                            {selected.name}
+                          </div>
                         </div>
 
-                        <div className="bg-gray-50 p-3 rounded-md">
-                          <div className="text-xs text-gray-500">Category</div>
-                          <div className="font-medium">{selected.category || "--"}</div>
+                        <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+                          <div className="text-xs text-gray-500 mb-1">
+                            Category
+                          </div>
+                          <div className="font-medium text-sm">
+                            {selected.category || "--"}
+                          </div>
                         </div>
 
-                        <div className="bg-gray-50 p-3 rounded-md">
-                          <div className="text-xs text-gray-500">Description</div>
+                        <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+                          <div className="text-xs text-gray-500 mb-1">
+                            Description
+                          </div>
                           <div className="font-medium text-sm text-gray-700">
                             {selected.description || "--"}
                           </div>
                         </div>
                       </div>
 
-                      <div className="mt-4">
-                        <h4 className="text-sm font-medium">GPS Coordinates</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          <div className="bg-gray-50 p-3 rounded-md">
-                            <div className="text-xs text-gray-500">Latitude</div>
-                            <div className="font-medium">{selected.lat}</div>
-                          </div>
-                          <div className="bg-gray-50 p-3 rounded-md">
-                            <div className="text-xs text-gray-500">Longitude</div>
-                            <div className="font-medium">{selected.lng}</div>
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <button className="bg-emerald-900 text-white px-4 py-2 rounded-md">
-                            Edit Location Details
+                      {/* GPS Coordinates */}
+                      <div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2">
+                          <h4 className="text-sm font-semibold">
+                            GPS Coordinates
+                          </h4>
+                          <button
+                            onClick={copyCoords}
+                            className="flex items-center gap-1 text-teal-600 hover:text-teal-700 text-xs font-medium "
+                          >
+                            <Copy className="w-3 h-3" />
+                            Copy
                           </button>
                         </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 mt-3">
+                          <div className="bg-gray-50 p-2 sm:p-3 rounded-lg h-fit mt-8">
+                            <div className="text-xs text-gray-500 mb-1">
+                              Latitude
+                            </div>
+                            <div className="font-medium text-xs sm:text-sm">
+                              {selected.lat}
+                            </div>
+                          </div>
+                          <div className="bg-gray-50 p-2 sm:p-3 rounded-lg h-fit mt-8">
+                            <div className="text-xs text-gray-500 mb-1">
+                              Longitude
+                            </div>
+                            <div className="font-medium text-xs sm:text-sm">
+                              {selected.lng}
+                            </div>
+                          </div>
+                          <div className="sm:col-span-3 h-64 sm:h-auto">
+                            <div className="h-full rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                              <iframe
+                                src={`https://maps.google.com/maps?q=${selected.lat},${selected.lng}&z=15&output=embed`}
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                              ></iframe>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <button className=" bg-emerald-900 hover:bg-emerald-800 text-white px-4 py-2.5 sm:py-3 rounded-lg font-medium text-sm transition">
+                          Edit Location Details
+                        </button>
                       </div>
                     </div>
                   )}

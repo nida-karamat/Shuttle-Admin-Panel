@@ -4,7 +4,7 @@ import React from "react";
 
 export default function SystemPreferencesSettings() {
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 -mt-10">
       <header>
         <h1 className="text-lg font-semibold text-gray-900">
           System Preferences
@@ -50,7 +50,7 @@ function Field({ label, placeholder }) {
       <input
         type="text"
         placeholder={placeholder}
-        className="w-full rounded-lg border border-gray-200 px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+        className="w-full rounded-lg border border-gray-200 px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mt-3"
       />
     </label>
   );
@@ -59,9 +59,9 @@ function Field({ label, placeholder }) {
 function ThemeButton({ label, active = false }) {
   return (
     <button
-      className={`flex-1 rounded-full border px-4 py-1.5 text-center transition-colors ${
+      className={`flex-1 rounded-lg border px-4 py-2.5 text-center transition-colors ${
         active
-          ? "bg-emerald-900 border-emerald-900 text-white"
+          ? "bg-[#127E88] border-emerald-200 text-white"
           : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
       }`}
     >

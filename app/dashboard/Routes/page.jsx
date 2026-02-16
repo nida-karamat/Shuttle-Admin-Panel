@@ -3,22 +3,26 @@
 import { useState } from "react";
 import RoutesPanel from "../../Components/Route/Routes";
 import { TabStyles } from "../../theme/color";
+import { Info,Route } from "lucide-react";
 
 const stats = [
   {
     title: "Total Routes",
     value: 18,
-   
+    icon: <Route className="w-5 h-5 text-[#003B3B]" />,
+    bgIcon: "bg-[#003B3B]/10",
   },
   {
     title: "Active Routes Right Now",
     value: 12,
-   
+    icon: <Route className="w-5 h-5 text-[#10B981]" />,
+    bgIcon: "bg-[#10B981]/10",
   },
   {
     title: "Routes Needing Attention",
     value: 3,
-   
+    icon: <Info className="w-5 h-5 text-orange-500"/>,
+    bgIcon: "bg-orange-100",
   },
 ];
 
@@ -102,7 +106,9 @@ export default function RoutesPage() {
 
   return (
     <div className="p-6  min-h-screen">
-      <h2 className="text-2xl font-semibold mb-6 text-[#003B3B]">Routes Management</h2>
+      <h2 className="text-2xl font-semibold mb-6 text-[#003B3B]">
+        Routes Management
+      </h2>
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {stats.map((item, index) => (
@@ -110,9 +116,26 @@ export default function RoutesPage() {
             key={index}
             className="bg-white rounded-xl p-5 flex items-center justify-between shadow-sm "
           >
-            <div>
-              <h4 className="text-sm text-gray-500">{item.title}</h4>
+            {/* <div>
               <p className="text-2xl font-semibold">{item.value}</p>
+              <h4 className="text-sm text-gray-500">{item.title}</h4>
+            </div> */}
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div
+                   className={`w-10 h-10 rounded-lg flex items-center justify-center ${item.bgIcon}`}
+                >
+                  {item.icon}
+                </div>
+
+                <div>
+                  <p className="text-lg sm:text-2xl font-bold text-gray-800">
+                    {item.value}
+                  </p>
+                  <p className="text-gray-500 text-xs">{item.title}</p>
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -167,12 +190,16 @@ export default function RoutesPage() {
                   <span className="text-gray-400 text-sm">{route.stop}</span>
                 </div>
 
-                <div className="col-span-1 text-sm text-gray-400">{route.stops.join(" → ")}</div>
+                <div className="col-span-1 text-sm text-gray-400">
+                  {route.stops.join(" → ")}
+                </div>
 
                 <div className="col-span-1">
                   <span className="font-semibold">{route.shuttle}</span>
                   <br />
-                  <span className="text-gray-400 text-xs">{route.distance}</span>
+                  <span className="text-gray-400 text-xs">
+                    {route.distance}
+                  </span>
                 </div>
 
                 <div className="col-span-1 text-sm">{route.driver}</div>
@@ -183,8 +210,8 @@ export default function RoutesPage() {
                       route.status === "Active"
                         ? "bg-emerald-100 text-emerald-700"
                         : route.status === "Attention"
-                        ? "bg-orange-100 text-orange-600"
-                        : "bg-gray-100 text-gray-600"
+                          ? "bg-orange-100 text-orange-600"
+                          : "bg-gray-100 text-gray-600"
                     }`}
                   >
                     {route.status}
@@ -197,7 +224,11 @@ export default function RoutesPage() {
         </div>
       ) : (
         <div>
-          <RoutesPanel routes={routes} selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
+          <RoutesPanel
+            routes={routes}
+            selectedIndex={selectedIndex}
+            onSelect={setSelectedIndex}
+          />
         </div>
       )}
     </div>

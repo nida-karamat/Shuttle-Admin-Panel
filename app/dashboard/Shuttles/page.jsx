@@ -5,7 +5,7 @@ import Image from "next/image";
 import ShuttleDetail from "../../Components/ShuttleDetail";
 import { TabStyles } from "../../theme/color";
 import ShuttleActivityTimeline from "@/app/Components/Shuttle/ShuttleActivityTimeline";
-import { Dot, Bus, MessageCircleWarning } from "lucide-react";
+import { Dot, Bus, MessageCircleWarning,Activity,TrendingUp  } from "lucide-react";
 
 /* -------------------- CONSTANTS -------------------- */
 
@@ -63,19 +63,23 @@ export default function ShuttlesPage() {
   const stats = [
     {
       icon: (
-        <Bus className="bg-gray-300 text-[#003B3B] h-9 w-9 p-2 rounded-lg" />
+        <Bus className="bg-gray-100 text-[#003B3B] h-9 w-9 p-2 rounded-lg" />
       ),
       value: "48",
       label: "Total Shuttles",
       change: "+5%",
       positive: true,
+      Icon: <TrendingUp className="text-green-600 w-4 h-4" />,
     },
     {
-      icon: "✓",
+      icon: (
+        <Activity className="bg-green-100 text-green-600 h-9 w-9 p-2 rounded-lg" />
+      ),
       value: "24",
       label: "Active Right Now",
       change: "+2%",
       positive: true,
+      Icon: <TrendingUp className="text-green-500 w-4 h-4" />,
     },
     {
       icon: (
@@ -83,8 +87,9 @@ export default function ShuttlesPage() {
       ),
       value: "6",
       label: "Shuttle Navi Capacity",
-      change: "+4%",
+      change: "+8%",
       positive: true,
+      Icon: <TrendingUp className="text-green-500 w-4 h-4" />,
     },
   ];
 
@@ -95,7 +100,7 @@ export default function ShuttlesPage() {
       id: "S12",
       route: "Metro Loop",
       distance: "18 Seater",
-      driver: { name: "Ahmed Al Hathi", avatar: "/Shuttle/S1.png" },
+      driver: { name: "Ahmed Al Hathi", avatar: "/shuttle/S1.png" },
       status: "Onroute",
       statusColor: "bg-teal-100 text-teal-700",
       occupancy: "12/18",
@@ -110,7 +115,7 @@ export default function ShuttlesPage() {
       id: "S4",
       route: "Head Office Express",
       distance: "18 Seater",
-      driver: { name: "Faisal Al-Qilsani", avatar: "/Shuttle/S2.png" },
+      driver: { name: "Faisal Al-Qilsani", avatar: "/shuttle/S2.png" },
       status: "Full",
       statusColor: "bg-orange-100 text-orange-700",
       occupancy: "18/18",
@@ -125,7 +130,7 @@ export default function ShuttlesPage() {
       id: "S15",
       route: "Residential Loop",
       distance: "18 Seater",
-      driver: { name: "Majid Al-Oaiki", avatar: "/Shuttle/S3.png" },
+      driver: { name: "Majid Al-Oaiki", avatar: "/shuttle/S3.png" },
       status: "Waiting",
       statusColor: "bg-yellow-100 text-yellow-700",
       occupancy: "8/18",
@@ -140,7 +145,7 @@ export default function ShuttlesPage() {
       id: "S7",
       route: "West Terminal",
       distance: "22 Seater",
-      driver: { name: "Sufian Al-Mutairi", avatar: "/Shuttle/S4.png" },
+      driver: { name: "Sufian Al-Mutairi", avatar: "/shuttle/S4.png" },
       status: "Emergency",
       statusColor: "bg-red-100 text-red-700",
       occupancy: "6/22",
@@ -155,7 +160,7 @@ export default function ShuttlesPage() {
       id: "S22",
       route: "Building A Express",
       distance: "12 Seater",
-      driver: { name: "Nawaf Al-Shammari", avatar: "/Shuttle/S5.png" },
+      driver: { name: "Nawaf Al-Shammari", avatar: "/shuttle/S5.png" },
       status: "Onroute",
       statusColor: "bg-teal-100 text-teal-700",
       occupancy: "8/12",
@@ -170,7 +175,7 @@ export default function ShuttlesPage() {
       id: "S9",
       route: "Campus Connector",
       distance: "18 Seater",
-      driver: { name: "Yassar Al-Ajmi", avatar: "/Shuttle/S1.png" },
+      driver: { name: "Yassar Al-Ajmi", avatar: "/shuttle/S1.png" },
       status: "Idle",
       statusColor: "bg-gray-100 text-gray-700",
       occupancy: "0/18",
@@ -185,7 +190,7 @@ export default function ShuttlesPage() {
       id: "S31",
       route: "City Center Link",
       distance: "22 Seater",
-      driver: { name: "Khalid Al-Balushi", avatar: "/Shuttle/S7.png" },
+      driver: { name: "Khalid Al-Balushi", avatar: "/shuttle/S7.png" },
       status: "Near Full",
       statusColor: "bg-orange-100 text-orange-700",
       occupancy: "18/22",
@@ -200,7 +205,7 @@ export default function ShuttlesPage() {
       id: "S5",
       route: "Airport Shuttle",
       distance: "18 Seater",
-      driver: { name: "Omar Al-Ghannadi", avatar: "/Shuttle/S8.png" },
+      driver: { name: "Omar Al-Ghannadi", avatar: "/shuttle/S8.png" },
       status: "Offline",
       statusColor: "bg-gray-100 text-gray-700",
       occupancy: "0/18",
@@ -241,7 +246,7 @@ export default function ShuttlesPage() {
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-lg p-4 sm:p-6 shadow-sm border border-gray-100"
+              className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 sm:gap-3">
@@ -255,13 +260,17 @@ export default function ShuttlesPage() {
                   </div>
                 </div>
 
-                <p
-                  className={`text-xs font-medium ${
-                    stat.positive ? "text-teal-600" : "text-red-600"
-                  } mt-7`}
+              <div className="ml-auto mt-8">
+                <div
+                  className={`flex items-center text-xs font-medium ${
+                    stat.positive ? "text-green-600" : "text-red-600"
+                  }`}
                 >
+                  {stat.Icon}
                   {stat.change}
-                </p>
+                </div>
+
+              </div>
               </div>
             </div>
           ))}

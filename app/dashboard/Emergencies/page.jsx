@@ -3,7 +3,7 @@
 import React from "react";
 import ActiveRoute from "@/app/Components/Emergency/ActiveRoute";
 import OperationalTimeline from "@/app/Components/Emergency/OperationalTimeline";
-import { CircleCheckBig , Coffee, AlertTriangle, Clock, Lock, RefreshCcw,Play   } from "lucide-react";
+import { CircleCheckBig , Coffee, AlertTriangle, Clock, Lock, RefreshCcw,Play,Users   } from "lucide-react";
 export default function Page() {
 
   const driverStatuses = [
@@ -74,6 +74,9 @@ export default function Page() {
           <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-gray-100">
             <div className="flex flex-col sm:flex-row sm:items-start gap-3">
               <div>
+                <div >
+                  <Users/>
+                </div>
                 <div className="font-semibold text-sm sm:text-base">Driver</div>
                 <p className="text-xs text-gray-500 mb-2">
                   View Driver details

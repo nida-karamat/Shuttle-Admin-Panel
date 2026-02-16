@@ -4,7 +4,7 @@ import Image from "next/image";
 import {Upload, Trash2,Lock,Save} from "lucide-react";
 export default function CompanySettings() {
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 -mt-10">
       <header>
         <h1 className="text-lg font-semibold text-gray-900">
           Profile Settings
@@ -21,7 +21,7 @@ export default function CompanySettings() {
         <div className="flex items-center gap-4 flex-wrap">
           <div className="w-14 h-14 rounded-full bg-gray-200 overflow-hidden">
             <Image
-              src="/shuttle/S1.png"
+              src="/shuttle/S4.png"
               alt="Company logo"
               width={56}
               height={56}
@@ -30,15 +30,15 @@ export default function CompanySettings() {
           </div>
 
           <div className="flex gap-2">
-          <button className="px-5 py-1 rounded-xl bg-[#003B3B] text-white text-xs font-medium hover:bg-emerald-800 flex items-center gap-2">
-  <Upload className="w-4 h-4" />
-  Upload New
-</button>
+            <button className="px-5 py-1 rounded-xl bg-[#003B3B] text-white text-xs font-medium hover:bg-emerald-800 flex items-center gap-2">
+              <Upload className="w-4 h-4" />
+              Upload New
+            </button>
 
-<button className="px-4 py-4 rounded-xl text-xs font-medium border border-gray-300 hover:bg-emerald-800 flex items-center gap-2">
-         <Trash2 className="w-4 h-4" />
-          Remove
-         </button>
+            <button className="px-4 py-4 rounded-xl text-xs font-medium border border-gray-300 hover:bg-emerald-800 flex items-center gap-2">
+              <Trash2 className="w-4 h-4" />
+              Remove
+            </button>
           </div>
         </div>
 
@@ -68,10 +68,7 @@ export default function CompanySettings() {
           <Field label="Postal Code" placeholder="12214" />
           <Field label="Country" placeholder="Saudi Arabia" />
           <Field label="Phone Number" placeholder="+966 11 234 5678" />
-          <FullRowField
-            label="Website"
-            placeholder="www.shuttleops.sa"
-          />
+          <FullRowField label="Website" placeholder="www.shuttleops.sa" />
         </div>
       </div>
 

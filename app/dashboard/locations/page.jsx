@@ -129,17 +129,17 @@ export default function LocationsPage() {
     description: l.description || "",
   }));
   return (
-    <div className="p-4 sm:p-6 min-h-screen ">
+    <div className="p-4 sm:p-3 min-h-screen ">
       <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 font-Century">
         Location Management
       </h2>
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
         {stats.map((s, i) => (
-          <div key={i} className="bg-white rounded-xl p-4 sm:p-5 shadow-sm">
+          <div key={i} className="bg-white rounded-2xl p-4 sm:p-3 shadow-sm">
             <div className="flex items-center gap-3 sm:gap-4">
               {/* Icon box */}
-              <div className=" p-2 sm:p-3 rounded-lg">
+              <div className=" p-2 sm:p-3 rounded-xl">
                 {s.icon}
               </div>
 

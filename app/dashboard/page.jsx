@@ -33,7 +33,9 @@ export default function Dashboard() {
       title: "Currently active on-route",
       value: "130+",
       change: "+0.2%",
-      icon: <Bus/>,
+      icon: <Bus />,
+      bgIcon: "bg-[#127E88]/20",
+      textColor: "text-[#127E88]",
       isPositive: true,
     },
     {
@@ -41,6 +43,8 @@ export default function Dashboard() {
       value: "30+",
       change: "+1.2%",
       icon: <TriangleAlert />,
+      bgIcon: "bg-[#EF4444]/20",
+      textColor: "text-[#EF4444]",
       isPositive: false,
     },
     {
@@ -48,6 +52,8 @@ export default function Dashboard() {
       value: "2.5K+",
       change: "+5%",
       icon: <Route />,
+      bgIcon: "bg-[#1BA9A5]/20",
+      textColor: "text-[#1BA9A5]",
       isPositive: true,
     },
     {
@@ -55,6 +61,8 @@ export default function Dashboard() {
       value: "4.3 min",
       change: "-0.5%",
       icon: <Clock />,
+      bgIcon: "bg-[#F59E0B]/20",
+      textColor: "text-[#F59E0B]",
       isPositive: true,
     },
   ];
@@ -127,8 +135,8 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen ">
-      <div className="p-4 sm:p-6">
-        <h1 className="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-900 font-century">
+      <div className="p-4">
+        <h1 className="text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8 text-gray-900 font-century ">
           Dashboard
         </h1>
 
@@ -137,26 +145,37 @@ export default function Dashboard() {
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-4 sm:p-6 shadow-sm border border-gray-100"
+              className="bg-white rounded-2xl p-3 sm:p-4 shadow-sm border border-gray-100 
+                 min-h-[85px] sm:min-h-[110px]"
             >
-              <div className="flex flex-col items-start justify-between gap-4">
+              <div className="flex flex-col items-start justify-between gap-3 sm:gap-4">
                 <div className="flex items-start justify-between w-full">
-                  <div>
-                    <p className="text-gray-500 text-xs mb-1">{stat.title}</p>
-                    <p className="text-xl sm:text-2xl font-bold text-gray-800">
+                  <div className="flex flex-col gap-5 ">
+                    <p className="text-gray-500 text-[11px] sm:text-xs">
+                      {stat.title}
+                    </p>
+
+                    <p className="text-lg sm:text-3xl font-semibold text-gray-800">
                       {stat.value}
                     </p>
                   </div>
-                  <span className="text-xl sm:text-2xl">{stat.icon}</span>
+
+                  <div
+                    className={`p-2 rounded-xl ${stat.bgIcon} text-gray-700`}
+                  >
+                    <span className={`text-lg sm:text-xl ${stat.textColor}`}>{stat.icon}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1 ml-30">
+
+                <div className="flex items-center ml-auto">
                   {stat.isPositive ? (
-                    <FiArrowUp className="text-teal-500 text-sm" />
+                    <FiArrowUp className="text-teal-500 text-xs sm:text-sm" />
                   ) : (
-                    <FiArrowDown className="text-red-500 text-sm" />
+                    <FiArrowDown className="text-red-500 text-xs sm:text-sm" />
                   )}
+
                   <p
-                    className={`text-xs ${
+                    className={`text-[11px] sm:text-xs ${
                       stat.isPositive ? "text-teal-500" : "text-red-500"
                     }`}
                   >
@@ -189,18 +208,27 @@ export default function Dashboard() {
           </div>
           {/* Placeholder for Chart */}
           <div className="h-64 w-full">
-  <ResponsiveContainer width="100%" height="100%">
-    <LineChart data={chartData}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="day" />
-      <YAxis />
-      <Tooltip />
-      <Line type="monotone" dataKey="routeA" stroke="#003B3B" strokeWidth={2} />
-      <Line type="monotone" dataKey="routeB" stroke="#1BA9A5" strokeWidth={2} />
-    </LineChart>
-  </ResponsiveContainer>
-</div>
-
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" />
+                <YAxis />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="routeA"
+                  stroke="#003B3B"
+                  strokeWidth={2}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="routeB"
+                  stroke="#1BA9A5"
+                  strokeWidth={2}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* BOTTOM SECTION - 2 COLUMNS */}

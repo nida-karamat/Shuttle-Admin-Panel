@@ -5,7 +5,7 @@ import { ThemeColors } from "@/app/theme/color.js";
 import {Upload, Trash2,Lock,Save  } from "lucide-react";
 export default function ProfileSettings() {
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 -mt-10">
       <header>
         <h1 className="text-lg font-semibold text-gray-900">
           Profile Settings

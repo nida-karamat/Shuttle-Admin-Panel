@@ -32,7 +32,7 @@ export default function ShuttleDetail({ shuttle, onClose }) {
           </div>
 
           <div className="flex items-start gap-2 sm:gap-4 shrink-0">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+            <div className="w-20  rounded-lg overflow-hidden bg-gray-100 shrink-0">
               <img
                 src="/bus2.png"
                 alt="Shuttle Image"
@@ -51,14 +51,18 @@ export default function ShuttleDetail({ shuttle, onClose }) {
 
         <div className="grid grid-cols-2 gap-2 sm:gap-4">
           <div className="bg-gray-50 p-2 sm:p-4 rounded-lg">
-            <p className="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase">Occupancy</p>
+            <p className="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase">
+              Occupancy
+            </p>
             <p className="text-base sm:text-lg font-bold text-gray-900 mt-1">
               {shuttle.occupancy}
             </p>
           </div>
 
           <div className="bg-gray-50 p-2 sm:p-4 rounded-lg">
-            <p className="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase">ETA</p>
+            <p className="text-[10px] sm:text-xs font-semibold text-gray-400 uppercase">
+              ETA
+            </p>
             <p className="text-base sm:text-lg font-bold mt-1">
               {shuttle.occupancyPercent}%
             </p>
@@ -71,7 +75,9 @@ export default function ShuttleDetail({ shuttle, onClose }) {
               <span className="text-xs sm:text-sm text-teal-600">●</span>
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] sm:text-xs text-gray-500">Current Stop</p>
+              <p className="text-[10px] sm:text-xs text-gray-500">
+                Current Stop
+              </p>
               <p className="text-xs sm:text-sm font-semibold text-gray-900 truncate">
                 {shuttle.currentStop}
               </p>

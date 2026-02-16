@@ -3,12 +3,33 @@
 import React, { useState } from "react";
 import { FaPlus, FaChevronRight } from "react-icons/fa";
 import AddNewRule from "../../Components/break/AddNewRule";
+import { User,Heart,Calendar,Coffee } from "lucide-react";
 
 const stats = [
-  { title: "Active Drivers Today", value: 4 },
-  { title: "Break Rules Enabled", value: 3 },
-  { title: "Drivers on Sick Leave", value: 1 },
-  { title: "Upcoming Holidays", value: 0 },
+  {
+    title: "Active Drivers Today",
+    value: 4,
+    icon: <User className="w-5 h-5 text-[#003B3B]" />,
+    bgIcon: "bg-[#003B3B]/10",
+  },
+  {
+    title: "Break Rules Enabled",
+    value: 3,
+    icon: <Coffee  className="w-5 h-5 text-[#F97316]" />,
+    bgIcon: "bg-[#F97316]/10",
+  },
+  {
+    title: "Drivers on Sick Leave",
+    value: 1,
+    icon: <Heart className="w-5 h-5 text-[#3B82F6]" />,
+    bgIcon: "bg-[#3B82F6]/10",
+  },
+  {
+    title: "Upcoming Holidays",
+    value: 0,
+    icon: <Calendar className="w-5 h-5 text-[#EF4444]" />,
+    bgIcon: "bg-[#EF4444]/10",
+  },
 ];
 
 const holidayRules = [
@@ -72,13 +93,20 @@ export default function DriverSettingsPage() {
             key={i}
             className="bg-white rounded-xl p-4 sm:p-5 flex items-center justify-between shadow-sm"
           >
-            <div>
-              <p className="text-xs text-gray-500">{item.title}</p>
-              <h3 className="text-lg sm:text-2xl font-semibold mt-1">{item.value}</h3>
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* Icon box */}
+              <div className={`p-2 sm:p-3 rounded-xl ${item.bgIcon}`}>
+                {item.icon}
+              </div>
+
+              {/* Text */}
+              <div>
+                <h2 className="text-lg sm:text-2xl font-semibold">
+                  {item.value}
+                </h2>
+                <p className="text-xs sm:text-sm text-gray-500">{item.title}</p>
+              </div>
             </div>
-            {/* <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
-              {item.icon}
-            </div> */}
           </div>
         ))}
       </div>
@@ -89,7 +117,9 @@ export default function DriverSettingsPage() {
         {/* ================= LEFT: BREAK RULES ================= */}
         <div
           className={`bg-white rounded-xl shadow-sm p-4 sm:p-5 transition-all duration-300 ${
-            activeCard === "break" ? "md:col-span-2 lg:col-span-2" : "md:col-span-1 lg:col-span-1"
+            activeCard === "break"
+              ? "md:col-span-2 lg:col-span-2"
+              : "md:col-span-1 lg:col-span-1"
           }`}
         >
           <div className="flex items-center justify-between mb-4">
@@ -238,7 +268,7 @@ export default function DriverSettingsPage() {
                 className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-3"
               >
                 <div>
-                  <p className="text-sm font-medium">{h.title}</p>
+                  <p className="text-sm font-medium inline">{h.title}</p>
                   <p className="text-xs text-gray-500">{h.date}</p>
                 </div>
 
@@ -247,7 +277,7 @@ export default function DriverSettingsPage() {
                   {h.tags.map((t, idx) => (
                     <span
                       key={idx}
-                      className={`px-2 py-0.5 rounded-full text-xs ${
+                      className={`px-2 py-0.5 rounded-full text-xs ml-auto ${
                         t.includes("Day")
                           ? "bg-red-100 text-red-600"
                           : "bg-purple-100 text-purple-600"

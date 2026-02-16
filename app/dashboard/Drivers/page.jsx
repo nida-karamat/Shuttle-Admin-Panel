@@ -2,26 +2,33 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Circle, Users, Clock as ClockIcon, ChevronDown } from "lucide-react";
+import { Circle, User, Clock as ClockIcon,UserRoundSearch,Info  } from "lucide-react";
 import { TabStyles } from "../../theme/color";
 import DriverDetails from "@/app/Components/Driver/DriverDetails";
 import DriverActivityTimeline from "@/app/Components/Driver/DriverActivityTimeline";
 
 const stats = [
-  { 
-    label: "Total Drivers", 
+  {
+    label: "Total Drivers",
     value: 32,
-    icon: <Users className="w-8 h-8 text-gray-400" />
+    icon: <User className="w-5 h-5 text-gray-400" />,
+   
+    bgIcon: "bg-gray-100",
+    
   },
-  { 
-    label: "Drivers On-Duty", 
+  {
+    label: "Drivers On-Duty",
     value: 18,
-    icon: <Users className="w-8 h-8 text-green-500" />
+    icon: <UserRoundSearch className="w-5 h-5 text-green-500" />,
+    bgIcon: "bg-green-100",
+   
   },
-  { 
-    label: "Drivers On-Break / Off-Duty", 
+  {
+    label: "Drivers On-Break / Off-Duty",
     value: 6,
-    icon: <ClockIcon className="w-8 h-8 text-orange-500" />
+    icon: <Info className="w-5 h-5 text-orange-500" />,
+    bgIcon: "bg-orange-100",
+  
   },
 ];
 
@@ -41,7 +48,7 @@ const drivers = [
     phone: "+1 (555) 123-4567",
     email: "ahmed@abc.com",
     license: "Class B (Exp: 2025)",
-    avatar: "/Shuttle/S1.png",
+    avatar: "/shuttle/S1.png",
     shuttle: "S12",
     route: "Metro Loop",
     shift: "7:00 AM – 3:00 PM",
@@ -71,7 +78,7 @@ const drivers = [
     phone: "+1 (555) 234-5678",
     email: "faisal@abc.com",
     license: "Class B (Exp: 2026)",
-    avatar: "/Shuttle/S2.png",
+    avatar: "/shuttle/S2.png",
     shuttle: "S4",
     route: "Head Office Express",
     shift: "7:00 AM – 3:00 PM",
@@ -95,7 +102,7 @@ const drivers = [
     phone: "+1 (555) 345-6789",
     email: "majed@abc.com",
     license: "Class B (Exp: 2025)",
-    avatar: "/Shuttle/S3.png",
+    avatar: "/shuttle/S3.png",
     shuttle: "S16",
     route: "Residential Loop",
     shift: "3:00 PM – 11:00 PM",
@@ -117,7 +124,7 @@ const drivers = [
     phone: "+1 (555) 456-7890",
     email: "sultan@abc.com",
     license: "Class B (Exp: 2025)",
-    avatar: "/Shuttle/S4.png",
+    avatar: "/shuttle/S4.png",
     shuttle: "S7",
     route: "West Terminal",
     shift: "7:00 AM – 3:00 PM",
@@ -140,7 +147,7 @@ const drivers = [
     phone: "+1 (555) 567-8901",
     email: "nawaf@abc.com",
     license: "Class B (Exp: 2026)",
-    avatar: "/Shuttle/S5.png",
+    avatar: "/shuttle/S5.png",
     shuttle: "S22",
     route: "Building A Express",
     shift: "7:00 AM – 3:00 PM",
@@ -164,7 +171,7 @@ const drivers = [
     phone: "+1 (555) 678-9012",
     email: "yasser@abc.com",
     license: "Class B (Exp: 2025)",
-    avatar: "/Shuttle/S7.png",
+    avatar: "/shuttle/S7.png",
     shuttle: "S9",
     route: "Campus Connector",
     shift: "11:00 AM – 7:00 PM",
@@ -187,7 +194,7 @@ const drivers = [
     phone: "+1 (555) 789-0123",
     email: "khalid@abc.com",
     license: "Class B (Exp: 2026)",
-    avatar: "/Shuttle/S8.png",
+    avatar: "/shuttle/S8.png",
     shuttle: "S31",
     route: "City Center Link",
     shift: "7:00 AM – 3:00 PM",
@@ -211,7 +218,7 @@ const drivers = [
     phone: "+1 (555) 890-1234",
     email: "omar@abc.com",
     license: "Class B (Exp: 2025)",
-    avatar: "/Shuttle/S1.png",
+    avatar: "/shuttle/S1.png",
     shuttle: "-",
     route: "-",
     shift: "Not Assigned",
@@ -233,7 +240,7 @@ const drivers = [
     phone: "+1 (555) 901-2345",
     email: "rashed@abc.com",
     license: "Class B (Exp: 2025)",
-    avatar: "/Shuttle/S2.png",
+    avatar: "/shuttle/S2.png",
     shuttle: "S14",
     route: "Downtown Express",
     shift: "3:00 PM – 11:00 PM",
@@ -297,19 +304,32 @@ export default function DriversPage() {
   return (
     <div className="">
       <div className="p-4 sm:p-6">
-        <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-[#003B3B]">Drivers Management</h2>
-        
-        {/* Stats */}
+        <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-[#003B3B]">
+          Drivers Management
+        </h2>
+
+        {/* STATS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-          {stats.map((item, index) => (
+          {stats.map((stat, idx) => (
             <div
-              key={index}
-              className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-100 flex items-center gap-3 sm:gap-4"
+              key={idx}
+              className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100"
             >
-              <div className="shrink-0">{item.icon}</div>
-              <div>
-                <p className="text-gray-500 text-xs sm:text-sm">{item.label}</p>
-                <p className="text-xl sm:text-2xl font-semibold mt-1 text-gray-900">{item.value}</p>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.bgIcon}`}
+                  >
+                    {stat.icon}
+                  </div>
+
+                  <div>
+                    <p className="text-lg sm:text-2xl font-bold text-gray-800">
+                      {stat.value}
+                    </p>
+                    <p className="text-gray-500 text-xs">{stat.label}</p>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -330,7 +350,7 @@ export default function DriversPage() {
               {tab}
             </button>
           ))}
-          
+
           {/* Filter Dropdowns */}
           <div className="flex gap-2 ml-auto">
             <select className="text-xs border border-gray-200 rounded-lg px-2 py-1 text-gray-700 bg-white shrink-0">
@@ -349,9 +369,10 @@ export default function DriversPage() {
       {/* Two Panel Layout */}
       <div className="flex flex-col lg:flex-row gap-0 h-[calc(100vh-300px)]">
         {/* Left Panel - Driver List + Timeline */}
-        <div className={`flex-1 ${selectedDriver ? "lg:w-2/3" : "w-full"} transition-all duration-300`}>
+        <div
+          className={`flex-1 ${selectedDriver ? "lg:w-2/3" : "w-full"} transition-all duration-300`}
+        >
           <div className="px-6 pb-6 h-full ">
-
             {/* Header Row */}
             <div className="bg-gray-50 rounded-lg px-5 py-3 mb-3 flex items-center justify-between text-xs font-semibold text-gray-500 uppercase">
               <div className="flex items-center gap-4 flex-1">
@@ -396,20 +417,30 @@ export default function DriversPage() {
                             height={40}
                             className="w-8 h-8 rounded-full object-cover shrink-0"
                           />
-                          <span className="font-medium whitespace-nowrap">{d.name}</span>
+                          <span className="font-medium whitespace-nowrap">
+                            {d.name}
+                          </span>
                           <span className="text-white/60">•</span>
-                          <span className="whitespace-nowrap truncate">{d.phone}</span>
+                          <span className="whitespace-nowrap truncate">
+                            {d.phone}
+                          </span>
                           <span className="text-white/60">•</span>
-                          <span className="whitespace-nowrap truncate">{d.shuttle}</span>
+                          <span className="whitespace-nowrap truncate">
+                            {d.shuttle}
+                          </span>
                           <span className="text-white/60">•</span>
-                          <span className="whitespace-nowrap truncate">{d.shift}</span>
+                          <span className="whitespace-nowrap truncate">
+                            {d.shift}
+                          </span>
                           <span className="text-white/60">•</span>
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-white/20 border border-white/30 whitespace-nowrap shrink-0">
                             <span className="w-1.5 h-1.5 rounded-full bg-white" />
                             {d.status}
                           </span>
                           <span className="text-white/60">•</span>
-                          <span className="ml-auto text-white/60 whitespace-nowrap shrink-0 text-right">{d.last}</span>
+                          <span className="ml-auto text-white/60 whitespace-nowrap shrink-0 text-right">
+                            {d.last}
+                          </span>
                         </div>
                       ) : (
                         /* Card layout for non-selected */
@@ -423,13 +454,17 @@ export default function DriversPage() {
                               className="w-10 h-10 rounded-full object-cover shrink-0"
                             />
                             <div className="flex-1 min-w-0">
-                              <p className="font-medium text-gray-900">{d.name}</p>
+                              <p className="font-medium text-gray-900">
+                                {d.name}
+                              </p>
                               <p className="text-xs text-gray-500">{d.phone}</p>
                             </div>
                           </div>
 
                           <div className="flex-1 min-w-0">
-                            <p className="text-gray-900 font-medium">{d.shuttle}</p>
+                            <p className="text-gray-900 font-medium">
+                              {d.shuttle}
+                            </p>
                             <p className="text-xs text-gray-400">{d.route}</p>
                           </div>
 
@@ -444,8 +479,12 @@ export default function DriversPage() {
                           </div>
 
                           <div className="shrink-0">
-                            <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs ${statusStyles[d.status].badge}`}>
-                              <span className={`w-2 h-2 rounded-full ${statusStyles[d.status].dotBg}`} />
+                            <span
+                              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs ${statusStyles[d.status].badge}`}
+                            >
+                              <span
+                                className={`w-2 h-2 rounded-full ${statusStyles[d.status].dotBg}`}
+                              />
                               {d.status}
                             </span>
                           </div>
@@ -472,7 +511,10 @@ export default function DriversPage() {
 
         {/* Right Panel - Driver Details */}
         {selectedDriver && (
-          <DriverDetails driver={selectedDriver} onClose={() => setSelectedDriver(null)} />
+          <DriverDetails
+            driver={selectedDriver}
+            onClose={() => setSelectedDriver(null)}
+          />
         )}
       </div>
     </div>

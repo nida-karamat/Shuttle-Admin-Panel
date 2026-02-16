@@ -42,7 +42,7 @@ const ALERT_TYPES = [
 
 export default function NotificationsSettings() {
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 -mt-10">
       <header>
         <h1 className="text-lg font-semibold text-gray-900">
           Notification Preferences
@@ -114,7 +114,7 @@ function ChannelRow({ label, description, icon: Icon, bg, iconBg, enabled }) {
 
 function AlertRow({ label, description }) {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3">
+    <div className="flex items-center justify-between gap-3 rounded-xl bg-gray-100 px-4 py-3">
       <div className="space-y-0.5">
         <p className="text-xs font-semibold text-gray-800">{label}</p>
         <p className="text-[11px] text-gray-500">{description}</p>

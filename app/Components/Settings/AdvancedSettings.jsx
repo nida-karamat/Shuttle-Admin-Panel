@@ -21,7 +21,7 @@ export default function AdvancedSettings() {
   const [apiRateLimit, setApiRateLimit] = useState("1000 requests/hour");
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 md:space-y-8 -mt-10 px-1 sm:px-0">
       <header>
         <h1 className="text-lg font-semibold text-gray-900">
           Advanced Settings
@@ -34,7 +34,7 @@ export default function AdvancedSettings() {
       {/* System Status */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-4">
         <p className="text-xs font-semibold text-gray-700">System Status</p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           <StatusCard
             title="System Version"
             value="v2.5.3"
@@ -70,7 +70,7 @@ export default function AdvancedSettings() {
       {/* Developer Tools */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3">
         <p className="text-xs font-semibold text-gray-700">Developer Tools</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <ToolCard
             icon={FileText}
             iconBg="bg-blue-50 text-blue-600"
@@ -101,7 +101,7 @@ export default function AdvancedSettings() {
       {/* Data Management */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3">
         <p className="text-xs font-semibold text-gray-700">Data Management</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <ToolCard
             icon={Download}
             iconBg="bg-emerald-50 text-emerald-600"
@@ -156,14 +156,14 @@ export default function AdvancedSettings() {
       </div>
 
       {/* Debug Mode & Maintenance Mode */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <ModeCard
           icon={Clock}
           iconBg="bg-teal-50 text-teal-600"
           title="Debug Mode"
           description="Enable detailed logging and debugging"
           buttonText="Enable Debug Mode"
-          buttonBg="bg-emerald-900 hover:bg-emerald-800"
+          buttonBg="bg-[#127E88] hover:bg-[#127E88]/90"
         />
         <ModeCard
           icon={Wrench}
@@ -171,13 +171,14 @@ export default function AdvancedSettings() {
           title="Maintenance Mode"
           description="Put system in maintenance mode"
           buttonText="Enable Maintenance"
-          buttonBg="bg-gray-800 hover:bg-gray-700"
+          buttonBg="bg-[#6B7280] hover:bg-[#6B7280]/90"
         />
       </div>
     </section>
   );
 }
 
+// ✅ StatusCard
 function StatusCard({ title, value, status, statusColor }) {
   return (
     <div className="rounded-xl bg-gray-50 px-4 py-3 space-y-1">
@@ -188,26 +189,32 @@ function StatusCard({ title, value, status, statusColor }) {
   );
 }
 
+// ✅ ToolCard
 function ToolCard({ icon: Icon, iconBg, title, description }) {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3 cursor-pointer hover:bg-gray-100 transition-colors">
-      <div className="flex items-center gap-3">
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${iconBg}`}>
+    <div className="flex items-center justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3 cursor-pointer hover:bg-gray-100 transition-colors flex-wrap sm:flex-nowrap">
+      <div className="flex items-center gap-3 flex-1 min-w-0">
+        <div
+          className={`w-8 h-8 rounded-full flex items-center justify-center ${iconBg}`}
+        >
           <Icon className="w-4 h-4" />
         </div>
-        <div>
-          <p className="text-xs font-semibold text-gray-800">{title}</p>
-          <p className="text-[11px] text-gray-500">{description}</p>
+        <div className="min-w-0">
+          <p className="text-xs font-semibold text-gray-800 truncate">
+            {title}
+          </p>
+          <p className="text-[11px] text-gray-500 truncate">{description}</p>
         </div>
       </div>
-      <ChevronRight className="w-4 h-4 text-gray-400" />
+      <ChevronRight className="w-4 h-4 text-gray-400 mt-1 sm:mt-0" />
     </div>
   );
 }
 
+// ✅ ConfigRow
 function ConfigRow({ title, description, enabled, onToggle }) {
   return (
-    <div className="flex items-center justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3">
       <div className="flex-1">
         <p className="text-xs font-semibold text-gray-800">{title}</p>
         <p className="text-[11px] text-gray-500">{description}</p>
@@ -217,21 +224,30 @@ function ConfigRow({ title, description, enabled, onToggle }) {
   );
 }
 
+// ✅ SelectRow
 function SelectRow({ title, description, value, options, onChange }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3 cursor-pointer hover:bg-gray-100 transition-colors" onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-gray-50 px-4 py-3 cursor-pointer hover:bg-gray-100 transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <div className="flex-1">
           <p className="text-xs font-semibold text-gray-800">{title}</p>
           <p className="text-[11px] text-gray-500">{description}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-700">{value}</span>
-          <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <div className="flex items-center gap-2 mt-1 sm:mt-0">
+          <span className="text-xs text-gray-700 truncate">{value}</span>
+          <ChevronDown
+            className={`w-4 h-4 text-gray-400 transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
         </div>
       </div>
+
       {isOpen && (
         <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-10 overflow-hidden">
           {options.map((opt) => (
@@ -242,7 +258,9 @@ function SelectRow({ title, description, value, options, onChange }) {
                 setIsOpen(false);
               }}
               className={`w-full text-left px-4 py-2 text-xs hover:bg-gray-50 transition-colors ${
-                value === opt ? "bg-emerald-50 text-emerald-700 font-medium" : "text-gray-700"
+                value === opt
+                  ? "bg-emerald-50 text-emerald-700 font-medium"
+                  : "text-gray-700"
               }`}
             >
               {opt}
@@ -254,16 +272,28 @@ function SelectRow({ title, description, value, options, onChange }) {
   );
 }
 
-function ModeCard({ icon: Icon, iconBg, title, description, buttonText, buttonBg }) {
+// ✅ ModeCard
+function ModeCard({
+  icon: Icon,
+  iconBg,
+  title,
+  description,
+  buttonText,
+  buttonBg,
+}) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3">
-      <div className="flex items-start gap-3">
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconBg}`}>
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3 flex flex-col">
+      <div className="flex items-start gap-3 flex-wrap sm:flex-nowrap">
+        <div
+          className={`w-10 h-10 rounded-full flex items-center justify-center ${iconBg}`}
+        >
           <Icon className="w-5 h-5" />
         </div>
-        <div className="flex-1">
-          <p className="text-xs font-semibold text-gray-800">{title}</p>
-          <p className="text-[11px] text-gray-500 mt-1">{description}</p>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-semibold text-gray-800 truncate">{title}</p>
+          <p className="text-[11px] text-gray-500 mt-1 truncate">
+            {description}
+          </p>
         </div>
       </div>
       <button
@@ -273,7 +303,10 @@ function ModeCard({ icon: Icon, iconBg, title, description, buttonText, buttonBg
       </button>
     </div>
   );
-}function Toggle({ enabled, onToggle }) {
+}
+
+// ✅ Toggle
+function Toggle({ enabled, onToggle }) {
   return (
     <button
       onClick={onToggle}

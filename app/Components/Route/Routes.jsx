@@ -54,23 +54,37 @@ export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect =
 
               <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-2 sm:pb-0">
                 <div className="bg-gray-50 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-center text-xs whitespace-nowrap shrink-0">
-                  <div className="text-[10px] sm:text-xs text-gray-400">DISTANCE</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400">
+                    DISTANCE
+                  </div>
                   <div className="font-semibold text-xs sm:text-sm">7.8 km</div>
                 </div>
                 <div className="bg-gray-50 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-center text-xs whitespace-nowrap shrink-0">
-                  <div className="text-[10px] sm:text-xs text-gray-400">DURATION</div>
-                  <div className="font-semibold text-xs sm:text-sm">18 mins</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400">
+                    DURATION
+                  </div>
+                  <div className="font-semibold text-xs sm:text-sm">
+                    18 mins
+                  </div>
                 </div>
                 <div className="bg-gray-50 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-center text-xs whitespace-nowrap shrink-0">
-                  <div className="text-[10px] sm:text-xs text-gray-400">STOPS</div>
-                  <div className="font-semibold text-xs sm:text-sm">{selected.stops.length}</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400">
+                    STOPS
+                  </div>
+                  <div className="font-semibold text-xs sm:text-sm">
+                    {selected.stops.length}
+                  </div>
                 </div>
                 <div className="hidden sm:block bg-gray-50 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-center text-xs whitespace-nowrap shrink-0">
-                  <div className="text-[10px] sm:text-xs text-gray-400">ON-TIME RATE</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400">
+                    ON-TIME RATE
+                  </div>
                   <div className="font-semibold text-xs sm:text-sm">98%</div>
                 </div>
                 <div className="hidden sm:block bg-gray-50 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-center text-xs whitespace-nowrap shrink-0">
-                  <div className="text-[10px] sm:text-xs text-gray-400">COMPLAINT</div>
+                  <div className="text-[10px] sm:text-xs text-gray-400">
+                    COMPLAINT
+                  </div>
                   <div className="font-semibold text-xs sm:text-sm">96%</div>
                 </div>
                 <button
@@ -85,7 +99,7 @@ export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect =
             {/* Tabs */}
             <div className="pt-1 border-b border-gray-100 flex items-center justify-between overflow-x-auto pb-1">
               <nav className="flex items-center gap-2 sm:gap-4">
-                <button 
+                <button
                   onClick={() => setActiveTab("basics")}
                   className={`flex items-center gap-2 py-2 px-2 text-xs sm:text-sm whitespace-nowrap ${
                     activeTab === "basics"
@@ -95,7 +109,7 @@ export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect =
                 >
                   Route Basics
                 </button>
-                <button 
+                <button
                   onClick={() => setActiveTab("stops")}
                   className={`flex items-center gap-2 py-2 px-2 text-xs sm:text-sm whitespace-nowrap ${
                     activeTab === "stops"
@@ -105,7 +119,7 @@ export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect =
                 >
                   Stops Management
                 </button>
-                <button 
+                <button
                   onClick={() => setActiveTab("analytics")}
                   className={`flex items-center gap-2 py-2 px-2 text-sm ${
                     activeTab === "analytics"
@@ -117,8 +131,19 @@ export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect =
                 </button>
               </nav>
               <button className="bg-[#127E88] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#0f6170] transition flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5m-1.414-9.414a2 2 0 1 1 2.828 2.828L9.828 15H7v-2.828l8.586-8.586z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M11 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-5m-1.414-9.414a2 2 0 1 1 2.828 2.828L9.828 15H7v-2.828l8.586-8.586z"
+                  />
                 </svg>
                 Edit Route Details
               </button>
@@ -126,44 +151,46 @@ export default function RoutesPanel({ routes = [], selectedIndex = 0, onSelect =
 
             {/* Route Basics form */}
             {activeTab === "basics" && (
-            <div className="mt-8 space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-xs text-gray-500">ROUTE NAME</label>
-                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                    {selected.name}
+              <div className="mt-8 space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-500">ROUTE NAME</label>
+                    <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                      {selected.name}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-500">DESCRIPTION</label>
+                    <div className="bg-gray-50 rounded-lg p-3 text-sm">{`${selected.stops.length} stops • ${selected.avg || "-"}`}</div>
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs text-gray-500">DESCRIPTION</label>
-                  <div className="bg-gray-50 rounded-lg p-3 text-sm">{`${selected.stops.length} stops • ${selected.avg || "-"}`}</div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-500">ROUTE ID</label>
+                    <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                      R1 (Auto-generated)
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-500">
+                      SERVICE START
+                    </label>
+                    <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                      06:00 AM
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs text-gray-500">SERVICE END</label>
+                    <div className="bg-gray-50 rounded-lg p-3 text-sm">
+                      10:00 AM
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <label className="text-xs text-gray-500">ROUTE ID</label>
-                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                    R1 (Auto-generated)
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs text-gray-500">SERVICE START</label>
-                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                    06:00 AM
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs text-gray-500">SERVICE END</label>
-                  <div className="bg-gray-50 rounded-lg p-3 text-sm">
-                    10:00 AM
-                  </div>
-                </div>
-              </div>
-            </div>
             )}
 
             {/* Stops Management Tab */}

@@ -3,7 +3,12 @@ import { useRouter } from "next/navigation";
 import { MdOutlineEmail } from "react-icons/md";
 import { MdOutlineLock } from "react-icons/md";
 import { AiOutlineEye } from "react-icons/ai";
-import { Bus, MapPin, Navigation, Users, BarChart3 } from 'lucide-react';
+import {
+  Bus,
+  MapPin,
+  Users,
+  TrendingUp,
+} from "lucide-react";
 export default function Login() {
   const router = useRouter();
 
@@ -134,7 +139,7 @@ export default function Login() {
             {/* Item 1 */}
             <div className="bg-white/50 rounded-full px-5 py-2 flex items-center gap-2 text-sm w-fit">
               <span className="bg-white p-2 rounded-full shadow-sm">
-                <MapPin className="text-teal-600" size={18} />
+                <Bus className="text-teal-600" size={18} />
               </span>
               <span className="text-[#00413F] text-sm whitespace-nowrap">
                 Real-time Fleet Tracking
@@ -144,7 +149,7 @@ export default function Login() {
             {/* Item 2 */}
             <div className="bg-white/50 rounded-full px-5 py-2 flex items-center gap-2 text-sm w-fit">
               <span className="bg-white p-2 rounded-full shadow-sm">
-                <Navigation className="text-teal-600" size={18} />
+                <MapPin className="text-teal-600" size={18} />
               </span>
               <span className="text-[#00413F] text-sm whitespace-nowrap">
                 Route Optimization
@@ -164,7 +169,7 @@ export default function Login() {
             {/* Item 4 */}
             <div className="bg-white/50 rounded-full px-5 py-2 flex items-center gap-2 text-sm w-fit">
               <span className="bg-white p-2 rounded-full shadow-sm">
-                <BarChart3 className="text-teal-600" size={18} />
+                <TrendingUp className="text-teal-600" size={18} />
               </span>
               <span className="text-[#00413F] text-sm whitespace-nowrap">
                 Analytics & Insights

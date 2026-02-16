@@ -44,12 +44,12 @@ export default function Sidebar() {
           ShuttleOps Admin
         </span>
       </div>
-
+     {/* <div className="border border-gray-300"></div> */}
       {/* Menu Items + Live Fleet card - Scrollable area */}
       <div className="flex-1 overflow-y-auto pr-2 no-scrollbar">
         <ul className="space-y-1 mt-3 sm:mt-4">
-        {menuItems.map((item) => {
-          const Icon = item.icon;
+          {menuItems.map((item) => {
+            const Icon = item.icon;
             const isActive = pathname === item.link;
             const isSoft = item.softHighlight && !isActive;
 
@@ -64,42 +64,42 @@ export default function Sidebar() {
               baseClasses += " text-gray-700 hover:bg-gray-50";
             }
 
-          return (
-            <li key={item.link}>
+            return (
+              <li key={item.link}>
                 <Link href={item.link} className={baseClasses}>
                   {Icon && (
-                  <Icon
-                    className={`mr-2 sm:mr-3 h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 ${
+                    <Icon
+                      className={`mr-2 sm:mr-3 h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 ${
                         isActive ? "text-white" : "text-gray-500"
-                    }`}
-                  />
+                      }`}
+                    />
                   )}
-                <span className="truncate">{item.name}</span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+                  <span className="truncate">{item.name}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
 
         {/* Live Fleet Monitoring Card - scrolls with menu */}
-        <div className="mt-6 sm:mt-8 mb-2">
-        <div className="bg-linear-to-br from-emerald-600 to-emerald-700 rounded-lg sm:rounded-2xl p-3 sm:p-4 text-white shadow-lg">
-          <div className="flex items-start gap-2 sm:gap-3 mb-3">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
-              <MapPinIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        <div className="mt-6 sm:mt-10 mb-2">
+          <div className="bg-linear-to-br from-[#003B3B] to-[#1BA9A5] rounded-lg sm:rounded-2xl p-3 sm:p-4 text-white shadow-lg">
+            <div className="flex items-center gap-3 mb-3 bg-white/20 rounded-full w-max p-1.5 sm:p-2">
+              <MapPinIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div className="flex-1 min-w-0">
-                <h3 className="text-xs sm:text-sm font-semibold mb-0.5 sm:mb-1 truncate">
+            <div className="flex items-start gap-2 sm:gap-3 mb-3">
+              <div className="flex-1 min-w-0 space-y-1 mt-1"> 
+                <h3 className="text-xs sm:text-lg font-semibold mb-0.5 sm:mb-1 truncate">
                   Live Fleet Monitoring
                 </h3>
                 <p className="text-[10px] sm:text-xs text-white/90 line-clamp-2">
                   Track all shuttles in real-time
                 </p>
+              </div>
             </div>
-          </div>
-          <button className="w-full bg-white text-emerald-700 text-[10px] sm:text-xs font-semibold py-1.5 sm:py-2 px-4 rounded-lg hover:bg-white/90 transition-colors">
-            View Map
-          </button>
+            <button className="w-full bg-white text-emerald-700 text-[10px] sm:text-xs font-semibold py-1.5 sm:py-2 px-4 rounded-lg hover:bg-white/90 transition-colors">
+              View Map
+            </button>
           </div>
         </div>
       </div>
